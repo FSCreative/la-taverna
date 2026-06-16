@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Taverna VIII | Ristorante &amp; Pizzeria in Gaschurn</title>
+<meta name="description" content="La Taverna VIII – Ihr italienisches Restaurant und Pizzeria in Gaschurn im Montafon. Original Pizza, hausgemachte Pasta und mediterrane Spezialitäten. Restaurant, Take-away und Lieferservice.">
+<link rel="icon" type="image/png" href="https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_64,h_64,al_c,q_85/Logo%20Final.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#15110d;
+    --bg-2:#1d1813;
+    --panel:#221b14;
+    --cream:#f4ead8;
+    --cream-soft:#e7d8bf;
+    --muted:#b6a489;
+    --terracotta:#c4622d;
+    --terracotta-2:#d97b3f;
+    --gold:#cda35a;
+    --green:#3f5b43;
+    --line:rgba(205,163,90,.22);
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --sans:'Jost',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--cream);
+    font-family:var(--sans);
+    font-weight:300;
+    line-height:1.7;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(1180px,92%);margin-inline:auto}
+  .eyebrow{
+    font-family:var(--sans);
+    font-weight:500;
+    letter-spacing:.42em;
+    text-transform:uppercase;
+    font-size:.72rem;
+    color:var(--gold);
+  }
+  h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.05}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* Buttons */
+  .btn{
+    display:inline-flex;align-items:center;gap:.6em;
+    font-family:var(--sans);font-weight:500;letter-spacing:.16em;
+    text-transform:uppercase;font-size:.78rem;
+    padding:1.05em 2.1em;border-radius:999px;cursor:pointer;
+    transition:transform .35s ease,box-shadow .35s ease,background .35s ease,color .35s ease;
+    border:1px solid transparent;white-space:nowrap;
+  }
+  .btn-primary{background:var(--terracotta);color:#fff;box-shadow:0 10px 30px -10px rgba(196,98,45,.7)}
+  .btn-primary:hover{background:var(--terracotta-2);transform:translateY(-3px);box-shadow:0 18px 40px -12px rgba(196,98,45,.85)}
+  .btn-ghost{border-color:var(--line);color:var(--cream)}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px)}
+  .btn .arrow{transition:transform .35s ease}
+  .btn:hover .arrow{transform:translateX(4px)}
+
+  /* Header */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    padding:1.1rem 0;transition:background .4s ease,padding .4s ease,border-color .4s ease,backdrop-filter .4s;
+    border-bottom:1px solid transparent;
+  }
+  header.scrolled{background:rgba(21,17,13,.85);backdrop-filter:blur(14px);border-bottom-color:var(--line);padding:.7rem 0}
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:.7rem}
+  .brand img{width:46px;height:46px;border-radius:50%;background:#fff2;padding:2px}
+  .brand-txt{font-family:var(--serif);font-size:1.35rem;font-weight:600;letter-spacing:.02em;line-height:1}
+  .brand-txt small{display:block;font-family:var(--sans);font-size:.58rem;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;font-weight:500;margin-top:3px}
+  .nav-links{display:flex;align-items:center;gap:2.4rem}
+  .nav-links a.lk{font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;font-weight:400;color:var(--cream-soft);transition:color .3s}
+  .nav-links a.lk:hover{color:var(--gold)}
+  .nav-cta{font-size:.72rem;padding:.85em 1.6em}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:6px}
+  .burger span{width:26px;height:2px;background:var(--cream);transition:.3s}
+
+  /* Hero */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;isolation:isolate}
+  .hero-bg{position:absolute;inset:0;z-index:-2;background:
+      linear-gradient(180deg,rgba(21,17,13,.55) 0%,rgba(21,17,13,.45) 40%,rgba(21,17,13,.92) 100%),
+      url('https://static.wixstatic.com/media/11062b_b6f3a9bdc88b4195b4af6792d79e28ac~mv2.jpg') center/cover no-repeat;
+  }
+  .hero-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(196,98,45,.18),transparent 55%)}
+  .hero-inner{padding-top:7rem;max-width:760px}
+  .hero h1{font-size:clamp(3rem,8vw,6.4rem);letter-spacing:.01em;margin:.6rem 0 .2rem}
+  .hero h1 em{color:var(--gold);font-style:italic;font-weight:500}
+  .hero .lead{font-size:clamp(1.05rem,2.2vw,1.4rem);color:var(--cream-soft);font-weight:300;max-width:34ch;margin:1.4rem 0 2.4rem}
+  .hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+  .scroll-hint{position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);font-size:.62rem;letter-spacing:.4em;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:.6rem}
+  .scroll-hint::after{content:"";width:1px;height:46px;background:linear-gradient(var(--gold),transparent);animation:drop 2s infinite}
+  @keyframes drop{0%{opacity:0;transform:scaleY(.3)}50%{opacity:1}100%{opacity:0;transform:scaleY(1)}}
+
+  /* Section base */
+  section{position:relative}
+  .pad{padding:clamp(5rem,10vw,8.5rem) 0}
+  .sec-head{text-align:center;max-width:640px;margin:0 auto clamp(2.5rem,5vw,4rem)}
+  .sec-head h2{font-size:clamp(2.2rem,5vw,3.6rem);margin:.5rem 0 .8rem}
+  .sec-head p{color:var(--muted);font-size:1.05rem}
+  .divider{width:62px;height:2px;background:var(--terracotta);margin:1.1rem auto;border-radius:2px}
+
+  /* About */
+  .about{background:var(--bg-2)}
+  .about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+  .about-txt h2{font-size:clamp(2.2rem,4.5vw,3.4rem);margin:.6rem 0 1.4rem}
+  .about-txt p{color:var(--cream-soft);margin-bottom:1.1rem;font-size:1.06rem;font-weight:300}
+  .about-quote{font-family:var(--serif);font-style:italic;font-size:1.5rem;color:var(--gold);border-left:2px solid var(--terracotta);padding-left:1.2rem;margin:1.8rem 0 0}
+  .about-quote small{display:block;font-family:var(--sans);font-style:normal;font-size:.8rem;letter-spacing:.1em;color:var(--muted);margin-top:.5rem;text-transform:uppercase}
+  .about-media{position:relative}
+  .about-media img{border-radius:6px;width:100%;height:100%;object-fit:cover;box-shadow:0 30px 60px -25px rgba(0,0,0,.8)}
+  .about-media .badge{position:absolute;bottom:-26px;left:-26px;background:var(--terracotta);color:#fff;border-radius:50%;width:130px;height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:var(--serif);box-shadow:0 18px 40px -12px rgba(196,98,45,.7);line-height:1.1}
+  .about-media .badge b{font-size:1.05rem;font-weight:600}
+  .about-media .badge span{font-family:var(--sans);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;margin-top:.25rem}
+
+  /* Highlights / menu */
+  .menu{background:var(--bg)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:2.2rem 1.9rem;transition:transform .4s ease,border-color .4s ease,background .4s ease}
+  .card:hover{transform:translateY(-8px);border-color:var(--gold);background:#271f16}
+  .card .k{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .card h3{font-size:1.55rem;color:var(--cream)}
+  .card .price{font-family:var(--serif);font-size:1.5rem;color:var(--gold);font-weight:600;white-space:nowrap}
+  .card .it{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--terracotta-2);margin-top:.4rem;font-weight:500}
+  .card p{color:var(--muted);margin-top:.9rem;font-size:.98rem}
+  .menu-note{text-align:center;margin-top:3rem}
+  .menu-note .btn{margin-top:.4rem}
+
+  /* Order band */
+  .order{position:relative;isolation:isolate;text-align:center}
+  .order-bg{position:absolute;inset:0;z-index:-2;background:
+      linear-gradient(rgba(21,17,13,.86),rgba(21,17,13,.92)),
+      url('https://static.wixstatic.com/media/d2f3ea_2e8a8df6e3b043ad88f0f64753c4c8c8~mv2.jpg') center/cover fixed no-repeat;}
+  .order h2{font-size:clamp(2.3rem,5vw,3.8rem);margin:.6rem 0 1rem}
+  .order p{color:var(--cream-soft);max-width:48ch;margin:0 auto 1.2rem;font-size:1.08rem}
+  .order .phone{font-family:var(--serif);font-size:1.6rem;color:var(--gold);margin-bottom:2rem;display:inline-block}
+  .order .ways{display:flex;gap:2.4rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.6rem}
+  .order .ways div{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .order .ways b{display:block;font-family:var(--serif);font-size:1.3rem;letter-spacing:0;text-transform:none;color:var(--cream);font-weight:600;margin-bottom:.2rem}
+
+  /* Gallery */
+  .gallery{background:var(--bg-2)}
+  .grid-imgs{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:1rem}
+  .grid-imgs a{overflow:hidden;border-radius:8px;position:relative;display:block}
+  .grid-imgs img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease,filter .8s ease;filter:saturate(.92)}
+  .grid-imgs a:hover img{transform:scale(1.08);filter:saturate(1.1)}
+  .grid-imgs .tall{grid-row:span 2}
+  .grid-imgs .wide{grid-column:span 2}
+
+  /* Visit / contact */
+  .visit{background:var(--bg)}
+  .visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4.5rem);align-items:stretch}
+  .info-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:clamp(2rem,4vw,3rem)}
+  .info-row{display:flex;gap:1.1rem;padding:1.3rem 0;border-bottom:1px solid var(--line)}
+  .info-row:last-child{border-bottom:0;padding-bottom:0}
+  .info-row:first-child{padding-top:0}
+  .info-row .ic{flex:none;width:42px;height:42px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center;color:var(--gold)}
+  .info-row .ic svg{width:18px;height:18px}
+  .info-row h4{font-family:var(--sans);font-weight:500;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.35rem}
+  .info-row p{color:var(--cream-soft);font-size:1.05rem;font-weight:300}
+  .info-row a:hover{color:var(--gold)}
+  .map-wrap{border-radius:10px;overflow:hidden;min-height:340px;border:1px solid var(--line)}
+  .map-wrap iframe{width:100%;height:100%;min-height:340px;border:0;filter:grayscale(.3) sepia(.15) contrast(1.05)}
+
+  /* Footer */
+  footer{background:#0f0c09;padding:4rem 0 2rem;border-top:1px solid var(--line)}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2.5rem;align-items:start;margin-bottom:3rem}
+  .foot-brand{display:flex;align-items:center;gap:.8rem;margin-bottom:1.1rem}
+  .foot-brand img{width:54px;height:54px;border-radius:50%;background:#fff2;padding:2px}
+  .foot-brand .brand-txt{font-size:1.5rem}
+  .foot p{color:var(--muted);font-size:.95rem;max-width:34ch}
+  .foot h5{font-family:var(--sans);font-weight:500;letter-spacing:.2em;text-transform:uppercase;font-size:.72rem;color:var(--gold);margin-bottom:1.1rem}
+  .foot ul{list-style:none}
+  .foot ul li{margin-bottom:.7rem}
+  .foot ul a{color:var(--cream-soft);font-size:.95rem;transition:color .3s}
+  .foot ul a:hover{color:var(--gold)}
+  .foot-bottom{border-top:1px solid var(--line);padding-top:1.6rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;color:var(--muted);font-size:.82rem;letter-spacing:.06em}
+
+  /* Mobile nav */
+  .mobile-menu{position:fixed;inset:0;z-index:49;background:rgba(15,12,9,.98);backdrop-filter:blur(8px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;transform:translateY(-100%);transition:transform .5s cubic-bezier(.7,0,.2,1)}
+  .mobile-menu.open{transform:none}
+  .mobile-menu a{font-family:var(--serif);font-size:2rem;color:var(--cream)}
+  .mobile-menu a:hover{color:var(--gold)}
+
+  @media(max-width:920px){
+    .nav-links{display:none}
+    .burger{display:flex}
+    .about-grid{grid-template-columns:1fr;gap:3rem}
+    .about-media .badge{width:108px;height:108px;left:auto;right:-14px;bottom:-22px}
+    .cards{grid-template-columns:1fr}
+    .visit-grid{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr;gap:2rem}
+    .grid-imgs{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px}
+    .grid-imgs .wide{grid-column:span 2}
+    .order-bg{background-attachment:scroll}
+  }
+  @media(max-width:520px){
+    .grid-imgs .wide{grid-column:span 1}
+    .order .ways{gap:1.4rem}
+    .brand-txt{font-size:1.15rem}
+  }
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <img src="https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_120,h_120,al_c,q_85/Logo%20Final.png" alt="La Taverna VIII Logo">
+      <span class="brand-txt">La Taverna<small>VIII · Gaschurn</small></span>
+    </a>
+    <nav class="nav-links">
+      <a class="lk" href="#about">Über uns</a>
+      <a class="lk" href="#menu">Speisekarte</a>
+      <a class="lk" href="#gallery">Galerie</a>
+      <a class="lk" href="#visit">Kontakt</a>
+      <a class="btn btn-primary nav-cta" href="https://www.kochdu.at/la-taverna" target="_blank" rel="noopener">Online bestellen</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">Über uns</a>
+  <a href="#menu">Speisekarte</a>
+  <a href="#gallery">Galerie</a>
+  <a href="#visit">Kontakt</a>
+  <a class="btn btn-primary" href="https://www.kochdu.at/la-taverna" target="_blank" rel="noopener">Online bestellen</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="wrap hero-inner">
+    <p class="eyebrow reveal">Ristorante · Pizzeria · Gaschurn im Montafon</p>
+    <h1 class="reveal">La Taverna <em>VIII</em></h1>
+    <p class="lead reveal">Italienischer Genuss in seiner schönsten Form – frische Zutaten, traditionelle Rezepte, mediterranes Flair.</p>
+    <div class="hero-cta reveal">
+      <a class="btn btn-primary" href="https://www.kochdu.at/la-taverna" target="_blank" rel="noopener">Online bestellen <span class="arrow">→</span></a>
+      <a class="btn btn-ghost" href="#menu">Speisekarte ansehen</a>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section class="about pad" id="about">
+  <div class="wrap about-grid">
+    <div class="about-txt reveal">
+      <p class="eyebrow">Über uns</p>
+      <h2>Echte italienische<br>Küche &amp; Gastfreundschaft</h2>
+      <p>In der La Taverna VIII in Gaschurn verbinden wir authentische italienische Küche mit herzlicher Gastfreundschaft. Unsere Leidenschaft gilt frischen Zutaten, traditionellen Rezepten und dem unverwechselbaren Geschmack Italiens.</p>
+      <p>Von knuspriger Pizza über feine Pasta bis hin zu frischem Fisch, saftigem Rumpsteak und klassischen Antipasti – bei uns kommt nur auf den Teller, was wir selbst lieben. Genießen Sie mediterranes Flair, gute Weine und gemütliche Stunden im Herzen von Gaschurn.</p>
+      <p class="about-quote">„Alla taverna il tempo si ferma.“<small>In der Taverne steht die Zeit still</small></p>
+    </div>
+    <div class="about-media reveal">
+      <img src="https://static.wixstatic.com/media/d2f3ea_c740e60d71c34f1682d9daab191f7d4d~mv2.jpg" alt="Restaurant La Taverna in Gaschurn">
+      <div class="badge"><b>Benvenuti</b><span>🇮🇹 dal cuore</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU HIGHLIGHTS -->
+<section class="menu pad" id="menu">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Speisekarte</p>
+      <h2>Beliebte Spezialitäten</h2>
+      <div class="divider"></div>
+      <p>Ein kleiner Vorgeschmack – Tagesmenü &amp; à la carte täglich frisch zubereitet.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal">
+        <div class="k"><h3>Margherita</h3><span class="price">€ 13,90</span></div>
+        <div class="it">Pizza</div>
+        <p>Tomaten und Mozzarella – der zeitlose Klassiker aus dem Steinofen.</p>
+      </div>
+      <div class="card reveal">
+        <div class="k"><h3>Creca</h3><span class="price">€ 16,90</span></div>
+        <div class="it">Pizza</div>
+        <p>Tomaten, Mozzarella, Feta, Oliven und Speck – kräftig &amp; mediterran.</p>
+      </div>
+      <div class="card reveal">
+        <div class="k"><h3>Prosciutto e Melone</h3><span class="price">€ 16,90</span></div>
+        <div class="it">Antipasti</div>
+        <p>Parmaschinken und Melone – die perfekte Vorspeise zum Auftakt.</p>
+      </div>
+      <div class="card reveal">
+        <div class="k"><h3>Spaghetti Napoli</h3><span class="price">€ 13,90</span></div>
+        <div class="it">Pasta</div>
+        <p>Spaghetti in fruchtiger Tomatensauce – einfach, ehrlich, gut.</p>
+      </div>
+      <div class="card reveal">
+        <div class="k"><h3>Fitness-Salat</h3><span class="price">€ 15,90</span></div>
+        <div class="it">Salate</div>
+        <p>Mit Hühnerfleischstreifen und Rucola – frisch und leicht.</p>
+      </div>
+      <div class="card reveal">
+        <div class="k"><h3>Petto di Pollo</h3><span class="price">€ 25,90</span></div>
+        <div class="it">Fleisch &amp; Fisch</div>
+        <p>Hühnerbrustfilet mit frischen Champignons – ein herzhafter Klassiker.</p>
+      </div>
+    </div>
+    <div class="menu-note reveal">
+      <p style="color:var(--muted)">Die komplette Karte mit Antipasti, Salaten, Pizza, Pasta, Fleisch &amp; Fisch:</p>
+      <a class="btn btn-ghost" href="https://www.la-taverna-pizzeria.at/menus" target="_blank" rel="noopener">Zur vollständigen Speisekarte <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER -->
+<section class="order pad" id="order">
+  <div class="order-bg"></div>
+  <div class="wrap reveal">
+    <p class="eyebrow">Genuss wo du willst</p>
+    <h2>Im Restaurant. Abholen. Liefern lassen.</h2>
+    <p>Genießen Sie unsere Speisen direkt bei uns, holen Sie bequem ab oder lassen Sie sich Ihre Lieblingsgerichte nach Hause bringen – in Gaschurn und Umgebung.</p>
+    <a class="phone" href="tel:+43555820015">Bestellhotline · +43 5558 20015</a>
+    <div class="ways">
+      <div><b>Dine-in</b>Im Restaurant</div>
+      <div><b>Take-away</b>Selbst abholen</div>
+      <div><b>Lieferung</b>Bis vor die Tür</div>
+    </div>
+    <div>
+      <a class="btn btn-primary" href="https://www.kochdu.at/la-taverna" target="_blank" rel="noopener">Jetzt online bestellen <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery pad" id="gallery">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Galerie</p>
+      <h2>Augenblicke aus der Taverna</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="grid-imgs reveal">
+      <a class="wide" href="#"><img src="https://static.wixstatic.com/media/11062b_b6f3a9bdc88b4195b4af6792d79e28ac~mv2.jpg" alt="Pizza"></a>
+      <a class="tall" href="#"><img src="https://static.wixstatic.com/media/d2f3ea_2e8a8df6e3b043ad88f0f64753c4c8c8~mv2.jpg" alt="Piccata Milanese"></a>
+      <a href="#"><img src="https://static.wixstatic.com/media/d2f3ea_1af381b5dddc401c8bdabde58ece41b0~mv2.jpg" alt="Italienische Speisen"></a>
+      <a href="#"><img src="https://static.wixstatic.com/media/d2f3ea_414d9ff2628240c19ae38f9936d93f8f~mv2.jpg" alt="La Taverna Ambiente"></a>
+      <a href="#"><img src="https://static.wixstatic.com/media/d2f3ea_c740e60d71c34f1682d9daab191f7d4d~mv2.jpg" alt="Restaurant Gaschurn"></a>
+      <a class="wide" href="#"><img src="https://static.wixstatic.com/media/c837a6_27c8ec69a33c494e9eccc0f2cd7046dd~mv2.jpg" alt="Tagesmenü und à la carte"></a>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section class="visit pad" id="visit">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Kontakt &amp; Öffnungszeiten</p>
+      <h2>Besuchen Sie uns</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="visit-grid">
+      <div class="info-card reveal">
+        <div class="info-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-5.5-7-11a7 7 0 1114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+          <div><h4>Adresse</h4><p>Kirchdorfstraße 2c<br>6793 Gaschurn, Österreich</p></div>
+        </div>
+        <div class="info-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></div>
+          <div><h4>Telefon</h4><p><a href="tel:+43555820015">+43 5558 20015</a></p></div>
+        </div>
+        <div class="info-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <div><h4>Öffnungszeiten</h4><p>Täglich von 11:00 – 23:00 Uhr</p></div>
+        </div>
+        <div class="info-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h16v14H4z"/><path d="M4 8l8 5 8-5"/></svg></div>
+          <div><h4>Online bestellen</h4><p><a href="https://www.kochdu.at/la-taverna" target="_blank" rel="noopener">kochdu.at/la-taverna →</a></p></div>
+        </div>
+      </div>
+      <div class="map-wrap reveal">
+        <iframe title="Standort La Taverna VIII Gaschurn" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Kirchdorfstra%C3%9Fe%202c,%206793%20Gaschurn,%20Austria&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <img src="https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_120,h_120,al_c,q_85/Logo%20Final.png" alt="La Taverna VIII Logo">
+          <span class="brand-txt">La Taverna<small style="display:block;font-family:var(--sans);font-size:.58rem;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;font-weight:500;margin-top:3px">VIII · Gaschurn</small></span>
+        </div>
+        <p>Italienisches Restaurant &amp; Pizzeria im Herzen von Gaschurn im Montafon. Menü · à la carte · Lieferservice.</p>
+      </div>
+      <div>
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="#about">Über uns</a></li>
+          <li><a href="#menu">Speisekarte</a></li>
+          <li><a href="#gallery">Galerie</a></li>
+          <li><a href="#visit">Kontakt</a></li>
+          <li><a href="https://www.kochdu.at/la-taverna" target="_blank" rel="noopener">Online bestellen</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Kontakt</h5>
+        <ul>
+          <li><a href="tel:+43555820015">+43 5558 20015</a></li>
+          <li>Kirchdorfstraße 2c, 6793 Gaschurn</li>
+          <li>Täglich 11:00 – 23:00 Uhr</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 La Taverna VIII · Gaschurn</span>
+      <span>Website by FS Creative</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const hdr=document.getElementById('hdr');
+  const onScroll=()=>hdr.classList.toggle('scrolled',window.scrollY>40);
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+
+  // reveal on scroll
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:.14});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3*90)+'ms';io.observe(el);});
+
+  // mobile menu
+  const burger=document.getElementById('burger');
+  const mm=document.getElementById('mobileMenu');
+  const toggle=()=>{mm.classList.toggle('open');burger.classList.toggle('x');};
+  burger.addEventListener('click',toggle);
+  mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mm.classList.remove('open')));
+</script>
+</body>
+</html>

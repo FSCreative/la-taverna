@@ -1,0 +1,12 @@
+{
+  "name": "la-taverna",
+  "version": "1.0.0",
+  "description": "La Taverna VIII – Ristorante & Pizzeria Gaschurn",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
