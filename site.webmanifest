@@ -1,0 +1,21 @@
+{
+  "name": "La Taverna VIII – Ristorante & Pizzeria Gaschurn",
+  "short_name": "La Taverna VIII",
+  "description": "Italienisches Restaurant und Pizzeria in Gaschurn im Montafon.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#15110d",
+  "theme_color": "#15110d",
+  "icons": [
+    {
+      "src": "https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_192,h_192,al_c,q_85/Logo%20Final.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_512,h_512,al_c,q_85/Logo%20Final.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
