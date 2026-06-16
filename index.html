@@ -234,6 +234,7 @@
   .stars .fill{position:absolute;inset:0;width:var(--pct,86%);overflow:hidden;white-space:nowrap;color:var(--gold)}
   .rate-count{color:var(--muted);font-size:1.02rem;margin-bottom:1.9rem}
   .rate-count b{color:var(--cream-soft);font-weight:500}
+  .review-card .btn{white-space:normal;max-width:100%;line-height:1.3}
 
   /* Visit / contact */
   .visit{background:var(--bg)}
@@ -307,7 +308,8 @@
     .about-media .badge{width:92px;height:92px;right:8px;bottom:-18px}
     .about-quote{font-size:1.3rem}
     .map-wrap,.map-wrap iframe{min-height:280px}
-    .foot-bottom{flex-direction:column;text-align:center}
+    .foot-bottom{flex-direction:row;flex-wrap:nowrap;gap:.8rem;font-size:.72rem;letter-spacing:.02em}
+    .foot-bottom span:last-child{text-align:right}
   }
   @media(max-width:430px){
     .grid-imgs{grid-template-columns:1fr;grid-auto-rows:200px}
@@ -552,8 +554,8 @@
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 La Taverna VIII · Gaschurn</span>
-      <span>Website by FS Creative · <a href="/admin" style="color:var(--muted)">Admin</a></span>
+      <span>© 2026 La Taverna VIII Gaschurn</span>
+      <span>Website by FS Creative <a href="/admin" style="color:var(--muted);opacity:.55;margin-left:.4em">Admin</a></span>
     </div>
   </div>
 </footer>
