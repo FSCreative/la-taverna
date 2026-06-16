@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin · La Taverna VIII</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#15110d;--panel:#221b14;--cream:#f4ead8;--muted:#b6a489;--terracotta:#c4622d;--terracotta-2:#d97b3f;--gold:#cda35a;--line:rgba(205,163,90,.22);--serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',system-ui,sans-serif;--ok:#3f7d4f;--err:#b5483a}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight:300;line-height:1.6;min-height:100vh}
+  a{color:var(--gold);text-decoration:none}
+  .wrap{width:min(1100px,92%);margin:0 auto}
+  h1,h2{font-family:var(--serif);font-weight:600;line-height:1.1}
+  .top{border-bottom:1px solid var(--line);padding:1.3rem 0;position:sticky;top:0;background:rgba(21,17,13,.92);backdrop-filter:blur(10px);z-index:10}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+  .brand{display:flex;align-items:center;gap:.7rem}
+  .brand img{width:42px;height:42px;border-radius:50%;background:#fff2;padding:2px}
+  .brand b{font-family:var(--serif);font-size:1.3rem;font-weight:600}
+  .brand small{display:block;font-size:.56rem;letter-spacing:.34em;color:var(--gold);text-transform:uppercase}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font-family:var(--sans);font-weight:500;letter-spacing:.06em;font-size:.82rem;padding:.7em 1.3em;border-radius:999px;cursor:pointer;border:1px solid transparent;transition:.25s;background:var(--terracotta);color:#fff}
+  .btn:hover{background:var(--terracotta-2)}
+  .btn.ghost{background:transparent;border-color:var(--line);color:var(--cream)}
+  .btn.ghost:hover{border-color:var(--gold);color:var(--gold)}
+  .btn.sm{font-size:.74rem;padding:.55em 1em}
+
+  /* login */
+  .login{min-height:80vh;display:flex;align-items:center;justify-content:center}
+  .login-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:2.6rem;width:min(420px,92vw);text-align:center}
+  .login-card img{width:74px;height:74px;border-radius:50%;background:#fff2;padding:4px;margin-bottom:1rem}
+  .login-card h1{font-size:1.9rem;margin-bottom:.3rem}
+  .login-card p{color:var(--muted);font-size:.92rem;margin-bottom:1.5rem}
+  input[type=password]{width:100%;background:#1a140e;border:1px solid var(--line);color:var(--cream);border-radius:10px;padding:.95em 1em;font-family:var(--sans);font-size:1rem;margin-bottom:1rem}
+  input:focus{outline:none;border-color:var(--gold)}
+  .msg{min-height:1.2em;font-size:.85rem;margin-top:.4rem}
+  .msg.err{color:var(--err)} .msg.ok{color:var(--ok)}
+
+  /* dashboard */
+  main{padding:2.5rem 0 4rem}
+  .intro{margin-bottom:1.8rem}
+  .intro h2{font-size:2rem}
+  .intro p{color:var(--muted);max-width:60ch;margin-top:.4rem}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+  .tile{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .tile .ph{aspect-ratio:16/10;background:#0e0b08 center/cover no-repeat;border-bottom:1px solid var(--line)}
+  .tile .ph.logo{background-size:contain;background-position:center;background-color:#0e0b08;margin:0}
+  .tile .body{padding:1rem 1.1rem 1.2rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
+  .tile h3{font-family:var(--sans);font-weight:500;font-size:.95rem;letter-spacing:.02em}
+  .tile .tag{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--terracotta-2);font-weight:500}
+  .tile .row{display:flex;gap:.5rem;margin-top:auto;flex-wrap:wrap}
+  .tile .state{font-size:.72rem;color:var(--muted)}
+  .tile.busy{opacity:.6;pointer-events:none}
+  .hint{font-size:.78rem;color:var(--muted);background:#1a140e;border:1px solid var(--line);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:1.6rem}
+  @media(max-width:860px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.grid{grid-template-columns:1fr}.top .wrap{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <div class="brand">
+      <img src="https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_120,h_120,al_c,q_85/Logo%20Final.png" alt="Logo">
+      <b>La Taverna<small>Admin</small></b>
+    </div>
+    <div id="topActions"></div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<section class="login" id="loginView">
+  <div class="login-card">
+    <img src="https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_200,h_200,al_c,q_85/Logo%20Final.png" alt="Logo">
+    <h1>Admin-Bereich</h1>
+    <p>Bitte Passwort eingeben, um Fotos der Website zu verwalten.</p>
+    <input type="password" id="pw" placeholder="Passwort" autocomplete="current-password">
+    <button class="btn" style="width:100%" id="loginBtn">Anmelden</button>
+    <div class="msg" id="loginMsg"></div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<main id="dashView" style="display:none">
+  <div class="wrap">
+    <div class="intro">
+      <h2>Fotos verwalten</h2>
+      <p>Tausche hier die Bilder der Website aus. Wähle ein Foto von deinem Gerät – es wird sofort live übernommen. Mit „Zurücksetzen" stellst du das Originalbild wieder her.</p>
+    </div>
+    <div class="hint">Empfehlung: Querformat-Fotos in guter Auflösung (JPG/PNG). Große Bilder werden automatisch verkleinert. Das Logo am besten als PNG mit transparentem Hintergrund.</div>
+    <div class="grid" id="grid"></div>
+  </div>
+</main>
+
+<script>
+const FIELDS = [
+  {key:'logo',      label:'Logo',                tag:'Marke',     logo:true,  def:'https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_300,h_300,al_c,q_85/Logo%20Final.png'},
+  {key:'hero_bg',   label:'Hero-Hintergrund',    tag:'Startseite',def:'https://static.wixstatic.com/media/11062b_b6f3a9bdc88b4195b4af6792d79e28ac~mv2.jpg'},
+  {key:'about',     label:'Über uns – Bild',     tag:'Über uns',  def:'https://static.wixstatic.com/media/d2f3ea_c740e60d71c34f1682d9daab191f7d4d~mv2.jpg'},
+  {key:'order_bg',  label:'Bestellen – Hintergrund',tag:'Bestellen',def:'https://static.wixstatic.com/media/d2f3ea_2e8a8df6e3b043ad88f0f64753c4c8c8~mv2.jpg'},
+  {key:'gallery_1', label:'Galerie 1',           tag:'Galerie',   def:'https://static.wixstatic.com/media/11062b_b6f3a9bdc88b4195b4af6792d79e28ac~mv2.jpg'},
+  {key:'gallery_2', label:'Galerie 2',           tag:'Galerie',   def:'https://static.wixstatic.com/media/d2f3ea_2e8a8df6e3b043ad88f0f64753c4c8c8~mv2.jpg'},
+  {key:'gallery_3', label:'Galerie 3',           tag:'Galerie',   def:'https://static.wixstatic.com/media/d2f3ea_1af381b5dddc401c8bdabde58ece41b0~mv2.jpg'},
+  {key:'gallery_4', label:'Galerie 4',           tag:'Galerie',   def:'https://static.wixstatic.com/media/d2f3ea_414d9ff2628240c19ae38f9936d93f8f~mv2.jpg'},
+  {key:'gallery_5', label:'Galerie 5',           tag:'Galerie',   def:'https://static.wixstatic.com/media/d2f3ea_c740e60d71c34f1682d9daab191f7d4d~mv2.jpg'},
+  {key:'gallery_6', label:'Galerie 6',           tag:'Galerie',   def:'https://static.wixstatic.com/media/c837a6_27c8ec69a33c494e9eccc0f2cd7046dd~mv2.jpg'}
+];
+
+let KEY = sessionStorage.getItem('admkey') || '';
+let CURRENT = {};
+
+const $ = s => document.querySelector(s);
+const loginView = $('#loginView'), dashView = $('#dashView');
+
+function showDash(){
+  loginView.style.display='none';
+  dashView.style.display='block';
+  $('#topActions').innerHTML = '<button class="btn ghost sm" id="logout">Abmelden</button> <a class="btn sm" href="/" target="_blank">Website ansehen ↗</a>';
+  $('#logout').onclick = ()=>{ sessionStorage.removeItem('admkey'); location.reload(); };
+  loadImages();
+}
+
+async function loadImages(){
+  try{ CURRENT = await fetch('/api/images').then(r=>r.json()); }catch(e){ CURRENT={}; }
+  renderGrid();
+}
+
+function renderGrid(){
+  const g = $('#grid'); g.innerHTML='';
+  FIELDS.forEach(f=>{
+    const cur = CURRENT[f.key];
+    const src = cur || f.def;
+    const isCustom = !!cur;
+    const tile = document.createElement('div');
+    tile.className='tile'; tile.id='tile-'+f.key;
+    tile.innerHTML =
+      '<div class="ph'+(f.logo?' logo':'')+'" style="background-image:url(\''+src+'\')"></div>'+
+      '<div class="body">'+
+        '<div><div class="tag">'+f.tag+'</div><h3>'+f.label+'</h3></div>'+
+        '<div class="state">'+(isCustom?'● Eigenes Foto aktiv':'○ Originalbild')+'</div>'+
+        '<div class="row">'+
+          '<button class="btn sm" data-up="'+f.key+'">Foto ersetzen</button>'+
+          (isCustom?'<button class="btn ghost sm" data-reset="'+f.key+'">Zurücksetzen</button>':'')+
+        '</div>'+
+      '</div>';
+    g.appendChild(tile);
+  });
+  g.querySelectorAll('[data-up]').forEach(b=>b.onclick=()=>pickFile(b.getAttribute('data-up')));
+  g.querySelectorAll('[data-reset]').forEach(b=>b.onclick=()=>resetImg(b.getAttribute('data-reset')));
+}
+
+function pickFile(key){
+  const inp = document.createElement('input');
+  inp.type='file'; inp.accept='image/png,image/jpeg,image/webp';
+  inp.onchange = ()=>{ if(inp.files[0]) uploadImage(key, inp.files[0]); };
+  inp.click();
+}
+
+// downscale large raster images client-side (keep PNG transparency)
+function processFile(file){
+  return new Promise((resolve,reject)=>{
+    const isPng = file.type==='image/png';
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      const img = new Image();
+      img.onload = ()=>{
+        const MAX=1800;
+        let {width:w,height:h}=img;
+        if(w<=MAX && h<=MAX && file.size < 1.5*1024*1024){ return resolve(reader.result); }
+        const scale = Math.min(1, MAX/Math.max(w,h));
+        const cw=Math.round(w*scale), ch=Math.round(h*scale);
+        const c=document.createElement('canvas'); c.width=cw; c.height=ch;
+        c.getContext('2d').drawImage(img,0,0,cw,ch);
+        resolve(c.toDataURL(isPng?'image/png':'image/jpeg', isPng?undefined:0.85));
+      };
+      img.onerror=reject;
+      img.src=reader.result;
+    };
+    reader.onerror=reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function uploadImage(key, file){
+  const tile = $('#tile-'+key); tile.classList.add('busy');
+  try{
+    const dataUrl = await processFile(file);
+    const r = await fetch('/api/images',{method:'POST',headers:{'Content-Type':'application/json','x-admin-key':KEY},body:JSON.stringify({key,dataUrl})});
+    if(r.status===401){ sessionStorage.removeItem('admkey'); alert('Sitzung abgelaufen – bitte neu anmelden.'); return location.reload(); }
+    const j = await r.json();
+    if(!r.ok){ alert('Upload fehlgeschlagen: '+(j.error||r.status)); tile.classList.remove('busy'); return; }
+    CURRENT[key]=j.url;
+    renderGrid();
+  }catch(e){ alert('Fehler beim Verarbeiten des Bildes.'); tile.classList.remove('busy'); }
+}
+
+async function resetImg(key){
+  if(!confirm('Originalbild wiederherstellen?')) return;
+  const tile = $('#tile-'+key); tile.classList.add('busy');
+  const r = await fetch('/api/images',{method:'DELETE',headers:{'Content-Type':'application/json','x-admin-key':KEY},body:JSON.stringify({key})});
+  if(r.status===401){ sessionStorage.removeItem('admkey'); return location.reload(); }
+  delete CURRENT[key];
+  renderGrid();
+}
+
+async function doLogin(){
+  const pw = $('#pw').value;
+  const msg = $('#loginMsg'); msg.textContent='Prüfe…'; msg.className='msg';
+  try{
+    const r = await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pw})});
+    if(r.ok){ KEY=pw; sessionStorage.setItem('admkey',pw); showDash(); }
+    else { msg.textContent='Falsches Passwort.'; msg.className='msg err'; }
+  }catch(e){ msg.textContent='Verbindungsfehler.'; msg.className='msg err'; }
+}
+
+$('#loginBtn').onclick=doLogin;
+$('#pw').addEventListener('keydown',e=>{ if(e.key==='Enter') doLogin(); });
+
+// auto-resume session
+if(KEY){
+  fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:KEY})})
+    .then(r=>{ if(r.ok) showDash(); else { sessionStorage.removeItem('admkey'); } }).catch(()=>{});
+}
+</script>
+</body>
+</html>
