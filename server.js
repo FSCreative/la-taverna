@@ -59,6 +59,15 @@ function collectBody(req, cb) {
 const server = http.createServer((req, res) => {
   const urlPath = decodeURIComponent((req.url || '/').split('?')[0]);
 
+  // ---- favicon (covers default /favicon.ico requests in every browser) ----
+  if (urlPath === '/favicon.ico') {
+    res.writeHead(302, {
+      'Location': 'https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_64,h_64,al_c,q_85/Logo%20Final.png',
+      'Cache-Control': 'public, max-age=86400'
+    });
+    return res.end();
+  }
+
   // ---- API ----
   if (urlPath === '/api/images' && req.method === 'GET') {
     return sendJson(res, 200, readImages());
