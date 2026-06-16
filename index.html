@@ -346,15 +346,14 @@
   <div class="wrap reveal">
     <p class="eyebrow">Genuss wo du willst</p>
     <h2>Im Restaurant. Abholen. Liefern lassen.</h2>
-    <p>Genießen Sie unsere Speisen direkt bei uns, holen Sie bequem ab oder lassen Sie sich Ihre Lieblingsgerichte nach Hause bringen – in Gaschurn und Umgebung.</p>
-    <a class="phone" href="tel:+43555820015">Bestellhotline · +43 5558 20015</a>
+    <p>Genießen Sie unsere Speisen direkt bei uns, holen Sie bequem ab oder lassen Sie sich Ihre Lieblingsgerichte bequem online nach Hause bestellen – in Gaschurn und Umgebung.</p>
     <div class="ways">
       <div><b>Dine-in</b>Im Restaurant</div>
       <div><b>Take-away</b>Selbst abholen</div>
       <div><b>Lieferung</b>Bis vor die Tür</div>
     </div>
     <div>
-      <a class="btn btn-primary" href="https://www.kochdu.at/la-taverna" target="_blank" rel="noopener">Jetzt online bestellen <span class="arrow">→</span></a>
+      <a class="btn btn-primary" style="font-size:.92rem;padding:1.3em 2.8em" href="https://www.kochdu.at/la-taverna" target="_blank" rel="noopener">Jetzt online bestellen <span class="arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -473,7 +472,8 @@
     if(!cfg||typeof cfg!=='object') return;
     document.querySelectorAll('[data-img]').forEach(el=>{
       const v=cfg[el.dataset.img];
-      if(!v) return;
+      if(v===undefined||v===null||v==='') return;
+      if(v==='__hidden__'){ (el.closest('a')||el).style.display='none'; return; }
       if(el.tagName==='IMG') el.src=v;
       else el.style.backgroundImage="url('"+v+"')";
     });

@@ -23,6 +23,8 @@
   .btn:hover{background:var(--terracotta-2)}
   .btn.ghost{background:transparent;border-color:var(--line);color:var(--cream)}
   .btn.ghost:hover{border-color:var(--gold);color:var(--gold)}
+  .btn.danger{background:transparent;border-color:rgba(181,72,58,.5);color:#d98a7e}
+  .btn.danger:hover{border-color:var(--err);color:#e7a99f;background:rgba(181,72,58,.12)}
   .btn.sm{font-size:.74rem;padding:.55em 1em}
 
   /* login */
@@ -45,6 +47,7 @@
   .tile{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
   .tile .ph{aspect-ratio:16/10;background:#0e0b08 center/cover no-repeat;border-bottom:1px solid var(--line)}
   .tile .ph.logo{background-size:contain;background-position:center;background-color:#0e0b08;margin:0}
+  .tile .ph.empty{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;background:repeating-linear-gradient(45deg,#15110d,#15110d 11px,#1a140e 11px,#1a140e 22px)}
   .tile .body{padding:1rem 1.1rem 1.2rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
   .tile h3{font-family:var(--sans);font-weight:500;font-size:.95rem;letter-spacing:.02em}
   .tile .tag{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--terracotta-2);font-weight:500}
@@ -85,7 +88,7 @@
   <div class="wrap">
     <div class="intro">
       <h2>Fotos verwalten</h2>
-      <p>Tausche hier die Bilder der Website aus. Wähle ein Foto von deinem Gerät – es wird sofort live übernommen. Mit „Zurücksetzen" stellst du das Originalbild wieder her.</p>
+      <p>Tausche hier die Bilder der Website aus. Wähle ein Foto von deinem Gerät – es wird sofort live übernommen. „Löschen" entfernt ein Foto ganz von der Website, „Zurücksetzen" stellt das Originalbild wieder her.</p>
     </div>
     <div class="hint">Empfehlung: Querformat-Fotos in guter Auflösung (JPG/PNG). Große Bilder werden automatisch verkleinert. Das Logo am besten als PNG mit transparentem Hintergrund.</div>
     <div class="grid" id="grid"></div>
@@ -129,23 +132,28 @@ function renderGrid(){
   const g = $('#grid'); g.innerHTML='';
   FIELDS.forEach(f=>{
     const cur = CURRENT[f.key];
-    const src = cur || f.def;
-    const isCustom = !!cur;
+    const hidden = cur==='__hidden__';
+    const isCustom = !!cur && !hidden;
+    const src = isCustom ? cur : f.def;
     const tile = document.createElement('div');
     tile.className='tile'; tile.id='tile-'+f.key;
-    tile.innerHTML =
-      '<div class="ph'+(f.logo?' logo':'')+'" style="background-image:url(\''+src+'\')"></div>'+
+    const ph = hidden
+      ? '<div class="ph empty">Ausgeblendet</div>'
+      : '<div class="ph'+(f.logo?' logo':'')+'" style="background-image:url(\''+src+'\')"></div>';
+    const state = hidden ? '✕ Von der Website entfernt' : (isCustom?'● Eigenes Foto aktiv':'○ Originalbild');
+    let btns = '<button class="btn sm" data-up="'+f.key+'">Foto ersetzen</button>';
+    if(!hidden) btns += '<button class="btn danger sm" data-hide="'+f.key+'">Löschen</button>';
+    if(hidden || isCustom) btns += '<button class="btn ghost sm" data-reset="'+f.key+'">'+(hidden?'Wiederherstellen':'Zurücksetzen')+'</button>';
+    tile.innerHTML = ph +
       '<div class="body">'+
         '<div><div class="tag">'+f.tag+'</div><h3>'+f.label+'</h3></div>'+
-        '<div class="state">'+(isCustom?'● Eigenes Foto aktiv':'○ Originalbild')+'</div>'+
-        '<div class="row">'+
-          '<button class="btn sm" data-up="'+f.key+'">Foto ersetzen</button>'+
-          (isCustom?'<button class="btn ghost sm" data-reset="'+f.key+'">Zurücksetzen</button>':'')+
-        '</div>'+
+        '<div class="state">'+state+'</div>'+
+        '<div class="row">'+btns+'</div>'+
       '</div>';
     g.appendChild(tile);
   });
   g.querySelectorAll('[data-up]').forEach(b=>b.onclick=()=>pickFile(b.getAttribute('data-up')));
+  g.querySelectorAll('[data-hide]').forEach(b=>b.onclick=()=>hideImg(b.getAttribute('data-hide')));
   g.querySelectorAll('[data-reset]').forEach(b=>b.onclick=()=>resetImg(b.getAttribute('data-reset')));
 }
 
@@ -192,6 +200,17 @@ async function uploadImage(key, file){
     CURRENT[key]=j.url;
     renderGrid();
   }catch(e){ alert('Fehler beim Verarbeiten des Bildes.'); tile.classList.remove('busy'); }
+}
+
+async function hideImg(key){
+  if(!confirm('Dieses Foto komplett von der Website entfernen? Es wird dann nicht mehr angezeigt.')) return;
+  const tile = $('#tile-'+key); tile.classList.add('busy');
+  const r = await fetch('/api/images',{method:'POST',headers:{'Content-Type':'application/json','x-admin-key':KEY},body:JSON.stringify({key,hide:true})});
+  if(r.status===401){ sessionStorage.removeItem('admkey'); return location.reload(); }
+  const j = await r.json();
+  if(!r.ok){ alert('Fehler: '+(j.error||r.status)); tile.classList.remove('busy'); return; }
+  CURRENT[key]='__hidden__';
+  renderGrid();
 }
 
 async function resetImg(key){

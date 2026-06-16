@@ -91,6 +91,13 @@ const server = http.createServer((req, res) => {
         return sendJson(res, 200, { ok: true, key, url: null });
       }
 
+      // hide / delete completely (image won't show on the site)
+      if (body.hide) {
+        images[key] = '__hidden__';
+        writeImages(images);
+        return sendJson(res, 200, { ok: true, key, url: '__hidden__' });
+      }
+
       // set via plain URL
       if (body.url && /^https?:\/\//i.test(body.url)) {
         images[key] = body.url;
