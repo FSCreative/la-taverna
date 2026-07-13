@@ -21,16 +21,16 @@
 <meta property="og:title" content="La Taverna VIII | Ristorante & Pizzeria in Gaschurn">
 <meta property="og:description" content="Italienischer Genuss im Montafon – original Pizza, hausgemachte Pasta & mediterrane Spezialitäten. Im Restaurant, zum Abholen oder als Lieferung in Gaschurn.">
 <meta property="og:url" content="https://www.la-taverna-pizzeria.at/">
-<meta property="og:image" content="https://static.wixstatic.com/media/11062b_b6f3a9bdc88b4195b4af6792d79e28ac~mv2.jpg">
+<meta property="og:image" content="https://www.la-taverna-pizzeria.at/assets/img/hero.jpg">
 <meta property="og:image:alt" content="Frische Pizza der La Taverna VIII in Gaschurn">
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="La Taverna VIII | Ristorante & Pizzeria in Gaschurn">
 <meta name="twitter:description" content="Italienischer Genuss im Montafon – original Pizza, hausgemachte Pasta & mediterrane Spezialitäten. Restaurant, Take-away und Lieferservice in Gaschurn.">
-<meta name="twitter:image" content="https://static.wixstatic.com/media/11062b_b6f3a9bdc88b4195b4af6792d79e28ac~mv2.jpg">
+<meta name="twitter:image" content="https://www.la-taverna-pizzeria.at/assets/img/hero.jpg">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="icon" type="image/png" href="https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_64,h_64,al_c,q_85/Logo%20Final.png">
-<link rel="apple-touch-icon" href="https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_180,h_180,al_c,q_85/Logo%20Final.png">
+<link rel="icon" type="image/png" href="/assets/img/logo.png">
+<link rel="apple-touch-icon" href="/assets/img/logo.png">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -40,8 +40,8 @@
   "description": "Italienisches Restaurant und Pizzeria in Gaschurn im Montafon – original Pizza, hausgemachte Pasta und mediterrane Spezialitäten. Restaurant, Take-away und Lieferservice.",
   "url": "https://www.la-taverna-pizzeria.at/",
   "@id": "https://www.la-taverna-pizzeria.at/#restaurant",
-  "image": "https://static.wixstatic.com/media/11062b_b6f3a9bdc88b4195b4af6792d79e28ac~mv2.jpg",
-  "logo": "https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_300,h_300,al_c,q_85/Logo%20Final.png",
+  "image": "https://www.la-taverna-pizzeria.at/assets/img/hero.jpg",
+  "logo": "https://www.la-taverna-pizzeria.at/assets/img/logo.png",
   "telephone": "+43 5558 20015",
   "priceRange": "€€",
   "servesCuisine": ["Italienisch", "Pizza", "Pasta", "Mediterran"],
@@ -75,9 +75,8 @@
   "areaServed": ["Gaschurn", "Partenen", "St. Gallenkirch", "Montafon"]
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Schriften werden selbst gehostet (DSGVO): keine Verbindung zu Google -->
+<link rel="stylesheet" href="/assets/fonts.css">
 <style>
   :root{
     --bg:#15110d;
@@ -157,7 +156,7 @@
 
   /* Hero */
   .hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;isolation:isolate}
-  .hero-bg{position:absolute;inset:0;z-index:-2;background-position:center;background-size:cover;background-repeat:no-repeat;background-image:url('https://static.wixstatic.com/media/11062b_b6f3a9bdc88b4195b4af6792d79e28ac~mv2.jpg')}
+  .hero-bg{position:absolute;inset:0;z-index:-2;background-position:center;background-size:cover;background-repeat:no-repeat;background-image:url('/assets/img/hero.jpg')}
   .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(21,17,13,.6) 0%,rgba(21,17,13,.5) 40%,rgba(21,17,13,.94) 100%),radial-gradient(circle at 50% 35%,rgba(196,98,45,.20),transparent 60%)}
   .hero-inner{padding-top:6rem;max-width:820px;margin-inline:auto;display:flex;flex-direction:column;align-items:center}
   .hero-logo{width:clamp(160px,26vw,300px);height:auto;margin-bottom:1.5rem;border-radius:50%;background:rgba(255,255,255,.06);padding:8px;filter:drop-shadow(0 18px 40px rgba(0,0,0,.6))}
@@ -205,7 +204,7 @@
 
   /* Order band */
   .order{position:relative;isolation:isolate;text-align:center}
-  .order-bg{position:absolute;inset:0;z-index:-2;background-position:center;background-size:cover;background-attachment:fixed;background-repeat:no-repeat;background-image:url('https://static.wixstatic.com/media/d2f3ea_2e8a8df6e3b043ad88f0f64753c4c8c8~mv2.jpg')}
+  .order-bg{position:absolute;inset:0;z-index:-2;background-position:center;background-size:cover;background-attachment:fixed;background-repeat:no-repeat;background-image:url('/assets/img/order.jpg')}
   .order-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(21,17,13,.86),rgba(21,17,13,.92))}
   .order h2{font-size:clamp(2.3rem,5vw,3.8rem);margin:.6rem 0 1rem}
   .order p{color:var(--cream-soft);max-width:48ch;margin:0 auto 1.2rem;font-size:1.08rem}
@@ -250,10 +249,17 @@
   .info-row a:hover{color:var(--gold)}
   .map-wrap{border-radius:10px;overflow:hidden;min-height:340px;border:1px solid var(--line)}
   .map-wrap iframe{width:100%;height:100%;min-height:340px;border:0;filter:grayscale(.3) sepia(.15) contrast(1.05)}
+  .map-consent{height:100%;min-height:340px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.85rem;padding:2rem;background:var(--panel)}
+  .map-consent svg{width:34px;height:34px;color:var(--gold)}
+  .map-consent h4{font-family:var(--serif);font-size:1.35rem;font-weight:600;color:var(--cream)}
+  .map-consent p{color:var(--muted);font-size:.86rem;max-width:38ch;line-height:1.6}
+  .map-consent p a{color:var(--gold);text-decoration:underline}
+  .map-alt{font-size:.76rem;color:var(--muted);text-decoration:underline}
+  .map-alt:hover{color:var(--gold)}
 
   /* Footer */
   footer{background:#0f0c09;padding:4rem 0 2rem;border-top:1px solid var(--line)}
-  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2.5rem;align-items:start;margin-bottom:3rem}
+  .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1.1fr 1fr;gap:2.2rem;align-items:start;margin-bottom:3rem}
   .foot-brand{display:flex;align-items:center;gap:.8rem;margin-bottom:1.1rem}
   .foot-brand img{width:54px;height:54px;border-radius:50%;background:#fff2;padding:2px}
   .foot-brand .brand-txt{font-size:1.5rem}
@@ -337,7 +343,7 @@
 <header id="hdr">
   <div class="wrap nav">
     <a class="brand" href="#top">
-      <img data-img="logo" src="https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_120,h_120,al_c,q_85/Logo%20Final.png" alt="La Taverna VIII Logo">
+      <img data-img="logo" src="/assets/img/logo.png" alt="La Taverna VIII Logo">
       <span class="brand-txt">La Taverna<small>VIII · Gaschurn</small></span>
     </a>
     <nav class="nav-links">
@@ -365,7 +371,7 @@
 <section class="hero" id="top">
   <div class="hero-bg" id="heroBg" data-img="hero_bg"></div>
   <div class="wrap hero-inner">
-    <img class="hero-logo reveal" data-img="logo" src="https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_300,h_300,al_c,q_85/Logo%20Final.png" alt="La Taverna VIII Logo">
+    <img class="hero-logo reveal" data-img="logo" src="/assets/img/logo.png" alt="La Taverna VIII Logo">
     <p class="eyebrow reveal">Ristorante · Pizzeria · Gaschurn im Montafon</p>
     <h1 class="reveal">La Taverna <em>VIII</em></h1>
     <p class="lead reveal">Italienischer Genuss in seiner schönsten Form – frische Zutaten, traditionelle Rezepte, mediterranes Flair.</p>
@@ -388,7 +394,7 @@
       <p class="about-quote">„Alla taverna il tempo si ferma.“<small>In der Taverne steht die Zeit still</small></p>
     </div>
     <div class="about-media reveal">
-      <img data-img="about" src="https://static.wixstatic.com/media/d2f3ea_c740e60d71c34f1682d9daab191f7d4d~mv2.jpg" alt="Restaurant La Taverna in Gaschurn">
+      <img data-img="about" src="/assets/img/about.jpg" alt="Restaurant La Taverna in Gaschurn">
       <div class="badge"><b>Benvenuti</b><span>🇮🇹 dal cuore</span></div>
     </div>
   </div>
@@ -469,12 +475,12 @@
       <div class="divider"></div>
     </div>
     <div class="grid-imgs reveal">
-      <a class="wide" href="#"><img data-img="gallery_1" src="https://static.wixstatic.com/media/11062b_b6f3a9bdc88b4195b4af6792d79e28ac~mv2.jpg" alt="Pizza"></a>
-      <a class="tall" href="#"><img data-img="gallery_2" src="https://static.wixstatic.com/media/d2f3ea_2e8a8df6e3b043ad88f0f64753c4c8c8~mv2.jpg" alt="Piccata Milanese"></a>
-      <a href="#"><img data-img="gallery_3" src="https://static.wixstatic.com/media/d2f3ea_1af381b5dddc401c8bdabde58ece41b0~mv2.jpg" alt="Italienische Speisen"></a>
-      <a href="#"><img data-img="gallery_4" src="https://static.wixstatic.com/media/d2f3ea_414d9ff2628240c19ae38f9936d93f8f~mv2.jpg" alt="La Taverna Ambiente"></a>
-      <a href="#"><img data-img="gallery_5" src="https://static.wixstatic.com/media/d2f3ea_c740e60d71c34f1682d9daab191f7d4d~mv2.jpg" alt="Restaurant Gaschurn"></a>
-      <a class="wide" href="#"><img data-img="gallery_6" src="https://static.wixstatic.com/media/c837a6_27c8ec69a33c494e9eccc0f2cd7046dd~mv2.jpg" alt="Tagesmenü und à la carte"></a>
+      <a class="wide" href="#"><img data-img="gallery_1" src="/assets/img/hero.jpg" alt="Pizza"></a>
+      <a class="tall" href="#"><img data-img="gallery_2" src="/assets/img/order.jpg" alt="Piccata Milanese"></a>
+      <a href="#"><img data-img="gallery_3" src="/assets/img/gallery3.jpg" alt="Italienische Speisen"></a>
+      <a href="#"><img data-img="gallery_4" src="/assets/img/gallery4.jpg" alt="La Taverna Ambiente"></a>
+      <a href="#"><img data-img="gallery_5" src="/assets/img/about.jpg" alt="Restaurant Gaschurn"></a>
+      <a class="wide" href="#"><img data-img="gallery_6" src="/assets/img/gallery6.jpg" alt="Tagesmenü und à la carte"></a>
     </div>
   </div>
 </section>
@@ -527,9 +533,14 @@
           <div><h4>Online bestellen</h4><p><a href="https://www.kochdu.at/la-taverna" target="_blank" rel="noopener">kochdu.at/la-taverna →</a></p></div>
         </div>
       </div>
-      <div class="map-wrap reveal">
-        <iframe title="Standort La Taverna VIII Gaschurn" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q=Kirchdorfstra%C3%9Fe%202c,%206793%20Gaschurn,%20Austria&output=embed"></iframe>
+      <div class="map-wrap reveal" id="mapWrap">
+        <div class="map-consent" id="mapConsent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-5.5-7-11a7 7 0 1114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <h4>Karte von Google Maps</h4>
+          <p>Beim Laden der Karte werden Daten – unter anderem Ihre IP-Adresse – an Google übertragen. Näheres in unserer <a href="/datenschutz">Datenschutzerklärung</a>.</p>
+          <button class="btn btn-primary" id="loadMap" type="button">Karte laden</button>
+          <a class="map-alt" href="https://maps.google.com/?cid=472886726773949005" target="_blank" rel="noopener">Oder direkt in Google Maps öffnen →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -541,7 +552,7 @@
     <div class="foot-grid">
       <div>
         <div class="foot-brand">
-          <img data-img="logo" src="https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_120,h_120,al_c,q_85/Logo%20Final.png" alt="La Taverna VIII Logo">
+          <img data-img="logo" src="/assets/img/logo.png" alt="La Taverna VIII Logo">
           <span class="brand-txt">La Taverna<small style="display:block;font-family:var(--sans);font-size:.58rem;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;font-weight:500;margin-top:3px">VIII · Gaschurn</small></span>
         </div>
         <p>Italienisches Restaurant &amp; Pizzeria im Herzen von Gaschurn im Montafon. Menü · à la carte · Lieferservice.</p>
@@ -563,6 +574,13 @@
           <li><a href="tel:+43555820015">+43 5558 20015</a></li>
           <li>Kirchdorfstraße 2c, 6793 Gaschurn</li>
           <li>Täglich 11:00 – 23:00 Uhr</li>
+        </ul>
+      </div>
+      <div>
+        <h5>Rechtliches</h5>
+        <ul>
+          <li><a href="/impressum">Impressum</a></li>
+          <li><a href="/datenschutz">Datenschutzerklärung</a></li>
         </ul>
       </div>
     </div>
@@ -603,6 +621,21 @@
   // app bottom-nav: "Mehr" opens the full menu overlay
   const moreTab=document.getElementById('moreTab');
   if(moreTab){moreTab.addEventListener('click',e=>{e.preventDefault();mm.classList.add('open');});}
+
+  // Google Maps: load only after explicit consent (two-click / DSGVO)
+  const loadMap=document.getElementById('loadMap');
+  if(loadMap){
+    loadMap.addEventListener('click',()=>{
+      const w=document.getElementById('mapWrap');
+      const f=document.createElement('iframe');
+      f.title='Standort La Taverna VIII Gaschurn';
+      f.loading='lazy';
+      f.referrerPolicy='no-referrer';
+      f.src='https://www.google.com/maps?q=Kirchdorfstra%C3%9Fe%202c,%206793%20Gaschurn,%20Austria&output=embed';
+      w.innerHTML='';
+      w.appendChild(f);
+    });
+  }
 
   // load admin-managed images (logo, hero, about, order, gallery)
   fetch('/api/images').then(r=>r.ok?r.json():{}).then(cfg=>{

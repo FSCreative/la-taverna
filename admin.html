@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>Admin · La Taverna VIII</title>
-<link rel="icon" type="image/png" href="https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_64,h_64,al_c,q_85/Logo%20Final.png">
-<link rel="apple-touch-icon" href="https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_180,h_180,al_c,q_85/Logo%20Final.png">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="/assets/img/logo.png">
+<link rel="apple-touch-icon" href="/assets/img/logo.png">
+<link rel="stylesheet" href="/assets/fonts.css">
 <style>
   :root{--bg:#15110d;--panel:#221b14;--cream:#f4ead8;--muted:#b6a489;--terracotta:#c4622d;--terracotta-2:#d97b3f;--gold:#cda35a;--line:rgba(205,163,90,.22);--serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',system-ui,sans-serif;--ok:#3f7d4f;--err:#b5483a}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -66,7 +66,7 @@
 <div class="top">
   <div class="wrap">
     <div class="brand">
-      <img src="https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_120,h_120,al_c,q_85/Logo%20Final.png" alt="Logo">
+      <img src="/assets/img/logo.png" alt="Logo">
       <b>La Taverna<small>Admin</small></b>
     </div>
     <div id="topActions"></div>
@@ -76,7 +76,7 @@
 <!-- LOGIN -->
 <section class="login" id="loginView">
   <div class="login-card">
-    <img src="https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_200,h_200,al_c,q_85/Logo%20Final.png" alt="Logo">
+    <img src="/assets/img/logo.png" alt="Logo">
     <h1>Admin-Bereich</h1>
     <p>Bitte Passwort eingeben, um Fotos der Website zu verwalten.</p>
     <input type="password" id="pw" placeholder="Passwort" autocomplete="current-password">
@@ -99,16 +99,16 @@
 
 <script>
 const FIELDS = [
-  {key:'logo',      label:'Logo',                tag:'Marke',     logo:true,  def:'https://static.wixstatic.com/media/d2f3ea_6b0caa773b0c41aaaba561b49b440cbd~mv2.png/v1/fill/w_300,h_300,al_c,q_85/Logo%20Final.png'},
-  {key:'hero_bg',   label:'Hero-Hintergrund',    tag:'Startseite',def:'https://static.wixstatic.com/media/11062b_b6f3a9bdc88b4195b4af6792d79e28ac~mv2.jpg'},
-  {key:'about',     label:'Über uns – Bild',     tag:'Über uns',  def:'https://static.wixstatic.com/media/d2f3ea_c740e60d71c34f1682d9daab191f7d4d~mv2.jpg'},
-  {key:'order_bg',  label:'Bestellen – Hintergrund',tag:'Bestellen',def:'https://static.wixstatic.com/media/d2f3ea_2e8a8df6e3b043ad88f0f64753c4c8c8~mv2.jpg'},
-  {key:'gallery_1', label:'Galerie 1',           tag:'Galerie',   def:'https://static.wixstatic.com/media/11062b_b6f3a9bdc88b4195b4af6792d79e28ac~mv2.jpg'},
-  {key:'gallery_2', label:'Galerie 2',           tag:'Galerie',   def:'https://static.wixstatic.com/media/d2f3ea_2e8a8df6e3b043ad88f0f64753c4c8c8~mv2.jpg'},
-  {key:'gallery_3', label:'Galerie 3',           tag:'Galerie',   def:'https://static.wixstatic.com/media/d2f3ea_1af381b5dddc401c8bdabde58ece41b0~mv2.jpg'},
-  {key:'gallery_4', label:'Galerie 4',           tag:'Galerie',   def:'https://static.wixstatic.com/media/d2f3ea_414d9ff2628240c19ae38f9936d93f8f~mv2.jpg'},
-  {key:'gallery_5', label:'Galerie 5',           tag:'Galerie',   def:'https://static.wixstatic.com/media/d2f3ea_c740e60d71c34f1682d9daab191f7d4d~mv2.jpg'},
-  {key:'gallery_6', label:'Galerie 6',           tag:'Galerie',   def:'https://static.wixstatic.com/media/c837a6_27c8ec69a33c494e9eccc0f2cd7046dd~mv2.jpg'}
+  {key:'logo',      label:'Logo',                tag:'Marke',     logo:true,  def:'/assets/img/logo.png'},
+  {key:'hero_bg',   label:'Hero-Hintergrund',    tag:'Startseite',def:'/assets/img/hero.jpg'},
+  {key:'about',     label:'Über uns – Bild',     tag:'Über uns',  def:'/assets/img/about.jpg'},
+  {key:'order_bg',  label:'Bestellen – Hintergrund',tag:'Bestellen',def:'/assets/img/order.jpg'},
+  {key:'gallery_1', label:'Galerie 1',           tag:'Galerie',   def:'/assets/img/hero.jpg'},
+  {key:'gallery_2', label:'Galerie 2',           tag:'Galerie',   def:'/assets/img/order.jpg'},
+  {key:'gallery_3', label:'Galerie 3',           tag:'Galerie',   def:'/assets/img/gallery3.jpg'},
+  {key:'gallery_4', label:'Galerie 4',           tag:'Galerie',   def:'/assets/img/gallery4.jpg'},
+  {key:'gallery_5', label:'Galerie 5',           tag:'Galerie',   def:'/assets/img/about.jpg'},
+  {key:'gallery_6', label:'Galerie 6',           tag:'Galerie',   def:'/assets/img/gallery6.jpg'}
 ];
 
 let KEY = sessionStorage.getItem('admkey') || '';
