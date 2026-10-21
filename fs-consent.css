@@ -1,0 +1,227 @@
+/*! FS Consent 1.0 · FS Creative · fs-creative.at */
+/* Design pro Website über diese Variablen (oder "theme" in der Konfiguration) anpassen. */
+/* Öffentliche Variablen: --fsc-bg, --fsc-fg, --fsc-accent, … (z. B. in :root der Website setzen). */
+.fsc-root, .fsc-ph, .fsc-fab {
+  --_bg: var(--fsc-bg, #ffffff);
+  --_fg: var(--fsc-fg, #1d1d1f);
+  --_muted: var(--fsc-muted, color-mix(in srgb, var(--_fg) 68%, transparent));
+  --_accent: var(--fsc-accent, #1d1d1f);
+  --_accent-fg: var(--fsc-accent-fg, #ffffff);
+  --_border: var(--fsc-border, color-mix(in srgb, var(--_fg) 14%, transparent));
+  --_link: var(--fsc-link, var(--_fg));
+  --_radius: var(--fsc-radius, 16px);
+  --_btn-radius: var(--fsc-btn-radius, 10px);
+  --_font: var(--fsc-font, inherit);
+  --_heading-font: var(--fsc-heading-font, var(--_font));
+  --_heading-weight: var(--fsc-heading-weight, 600);
+  --_heading-transform: var(--fsc-heading-transform, none);
+  --_heading-spacing: var(--fsc-heading-spacing, normal);
+  --_btn-transform: var(--fsc-btn-transform, none);
+  --_btn-weight: var(--fsc-btn-weight, 600);
+  --_btn-spacing: var(--fsc-btn-spacing, normal);
+  --_font-size: var(--fsc-font-size, 15px);
+  --_toggle-off: var(--fsc-toggle-off, color-mix(in srgb, var(--_fg) 25%, transparent));
+  --_shadow: var(--fsc-shadow, 0 18px 50px -12px rgba(0, 0, 0, .28), 0 2px 8px rgba(0, 0, 0, .06));
+  --_ph-bg: var(--fsc-ph-bg, color-mix(in srgb, var(--_fg) 6%, var(--_bg)));
+  --_ph-fg: var(--fsc-ph-fg, var(--_fg));
+  --_z: var(--fsc-z, 2147483000);
+}
+
+/* ---------- Banner ---------- */
+.fsc-root {
+  position: fixed;
+  z-index: var(--_z);
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  padding: 16px;
+  pointer-events: none;
+  box-sizing: border-box;
+  font-family: var(--_font);
+  font-size: var(--_font-size);
+  line-height: 1.5;
+  color: var(--_fg);
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+.fsc-root *, .fsc-root *::before, .fsc-root *::after { box-sizing: border-box; }
+.fsc-pos-bottom-left { justify-content: flex-start; }
+.fsc-pos-bottom-right { justify-content: flex-end; }
+.fsc-pos-bottom { justify-content: center; }
+.fsc-pos-center { top: 0; align-items: center; justify-content: center; }
+
+.fsc-card {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 460px;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--_bg);
+  color: var(--_fg);
+  border: 1px solid var(--_border);
+  border-radius: var(--_radius);
+  box-shadow: var(--_shadow);
+  padding: 22px 22px 18px;
+  outline: none;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .25s ease, transform .25s ease;
+}
+.fsc-pos-bottom .fsc-card { max-width: 720px; }
+.fsc-open .fsc-card { opacity: 1; transform: none; }
+
+.fsc-root p { margin: 0; padding: 0; }
+.fsc-title {
+  font-family: var(--_heading-font);
+  font-weight: var(--_heading-weight);
+  text-transform: var(--_heading-transform);
+  letter-spacing: var(--_heading-spacing);
+  font-size: 1.15em;
+  line-height: 1.25;
+  margin: 0 0 8px !important;
+  color: var(--_fg);
+}
+.fsc-text { color: var(--_muted); font-size: .93em; }
+
+.fsc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.fsc-root .fsc-btn, .fsc-ph .fsc-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  flex: 1 1 auto;
+  min-height: 44px;
+  padding: 10px 18px;
+  border-radius: var(--_btn-radius);
+  border: 1.5px solid var(--_accent);
+  background: var(--_accent);
+  color: var(--_accent-fg);
+  font: inherit;
+  font-size: .93em;
+  font-weight: var(--_btn-weight);
+  text-transform: var(--_btn-transform);
+  letter-spacing: var(--_btn-spacing);
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: none;
+  transition: filter .15s ease, background-color .15s ease, transform .1s ease;
+}
+.fsc-root .fsc-btn:hover, .fsc-ph .fsc-btn:hover { filter: brightness(1.08); }
+.fsc-root .fsc-btn:active, .fsc-ph .fsc-btn:active { transform: translateY(1px); }
+.fsc-root .fsc-btn:focus-visible, .fsc-ph .fsc-btn:focus-visible,
+.fsc-root a:focus-visible, .fsc-switch-input:focus-visible + .fsc-switch-ui {
+  outline: 2px solid var(--_accent);
+  outline-offset: 2px;
+}
+.fsc-root .fsc-btn-primary { flex: 1 1 0; }
+.fsc-root .fsc-btn-ghost {
+  flex: 1 1 100%;
+  background: transparent;
+  color: var(--_fg);
+  border-color: var(--_border);
+}
+.fsc-pos-bottom .fsc-btn-ghost { flex: 0 1 auto; }
+.fsc-root .fsc-btn-ghost:hover { filter: none; background: color-mix(in srgb, var(--_fg) 6%, transparent); }
+
+.fsc-links {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px !important;
+  font-size: .82em;
+}
+.fsc-root a, .fsc-ph a { color: var(--_link); text-decoration: underline; text-underline-offset: 2px; }
+.fsc-links a { color: var(--_muted); }
+
+/* ---------- Einstellungen ---------- */
+.fsc-cats { margin-top: 14px; border-top: 1px solid var(--_border); }
+.fsc-cat { padding: 12px 0; border-bottom: 1px solid var(--_border); }
+.fsc-cat-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.fsc-cat-name { font-weight: 600; cursor: pointer; margin: 0; }
+.fsc-cat-desc { color: var(--_muted); font-size: .86em; margin-top: 3px !important; }
+.fsc-cat-svc { color: var(--_muted); font-size: .8em; margin-top: 4px !important; opacity: .85; }
+.fsc-always { font-size: .8em; font-weight: 600; color: var(--_muted); white-space: nowrap; }
+
+.fsc-switch { position: relative; display: inline-flex; flex: none; width: 44px; height: 26px; }
+.fsc-switch-input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; z-index: 1; }
+.fsc-switch-ui {
+  position: absolute; inset: 0;
+  border-radius: 999px;
+  background: var(--_toggle-off);
+  transition: background-color .2s ease;
+}
+.fsc-switch-ui::after {
+  content: "";
+  position: absolute; top: 3px; left: 3px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .25);
+  transition: transform .2s ease;
+}
+.fsc-switch-input:checked + .fsc-switch-ui { background: var(--_accent); }
+.fsc-switch-input:checked + .fsc-switch-ui::after { transform: translateX(18px); }
+
+/* ---------- Platzhalter für Karten, Videos & Co. ---------- */
+.fsc-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  padding: 24px;
+  box-sizing: border-box;
+  background: var(--_ph-bg);
+  color: var(--_ph-fg);
+  font-family: var(--_font);
+  font-size: var(--_font-size);
+  line-height: 1.5;
+  text-align: center;
+  border-radius: inherit;
+  overflow: hidden;
+}
+.fsc-ph-inner { max-width: 400px; }
+.fsc-ph p { margin: 0 0 12px; padding: 0; }
+.fsc-ph-title { font-family: var(--_heading-font); font-weight: var(--_heading-weight); font-size: 1.05em; margin-bottom: 6px !important; }
+.fsc-ph-text { font-size: .86em; opacity: .8; }
+.fsc-ph .fsc-btn { flex: none; }
+.fsc-ph-remember { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; font-size: .8em; opacity: .8; cursor: pointer; }
+.fsc-ph-remember input { margin: 0; accent-color: var(--_accent); }
+[data-consent-embed] > .fsc-frame { display: block; width: 100%; height: 100%; border: 0; }
+
+/* ---------- Button zum Wiederöffnen (optional: "reopenButton": true) ---------- */
+.fsc-fab {
+  position: fixed; z-index: calc(var(--_z) - 1); bottom: 16px; left: 16px;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; padding: 0; margin: 0;
+  border-radius: 50%; border: 1px solid var(--_border);
+  background: var(--_bg); color: var(--_accent);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .18); cursor: pointer;
+  transition: transform .15s ease;
+}
+.fsc-fab-right { left: auto; right: 16px; }
+.fsc-fab:hover { transform: scale(1.06); }
+.fsc-fab:focus-visible { outline: 2px solid var(--_accent); outline-offset: 2px; }
+
+/* ---------- Mobil ---------- */
+@media (max-width: 560px) {
+  .fsc-root { padding: 10px; }
+  .fsc-card { max-width: none; padding: 18px 16px 14px; }
+  .fsc-actions { flex-direction: column; }
+  .fsc-root .fsc-btn, .fsc-root .fsc-btn-ghost { flex: 1 1 auto; width: 100%; }
+  .fsc-pos-center { align-items: flex-end; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fsc-card, .fsc-switch-ui, .fsc-switch-ui::after { transition: none; }
+}
+
+@media print { .fsc-root, .fsc-fab { display: none !important; } }

@@ -9,6 +9,15 @@
 <link rel="canonical" href="https://www.la-taverna-pizzeria.at/impressum">
 <link rel="icon" type="image/png" href="/assets/img/logo.png">
 <link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/fs-consent.css">
+<script type="application/json" id="fs-consent-config">
+{
+  "privacyUrl": "/datenschutz",
+  "imprintUrl": "/impressum",
+  "position": "bottom-left",
+  "categories": { "media": ["Google Maps"] }
+}
+</script>
 <style>
   :root{--bg:#15110d;--panel:#221b14;--cream:#f4ead8;--cream-soft:#e7d8bf;--muted:#b6a489;--terracotta:#c4622d;--gold:#cda35a;--line:rgba(205,163,90,.22);--serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',system-ui,sans-serif}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -37,6 +46,17 @@
   footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--muted);font-size:.82rem;text-align:center}
   footer a{margin:0 .5rem}
   @media(max-width:600px){.row{flex-direction:column;gap:.2rem}.row .k{flex:none}}
+
+  /* Cookie-Banner (FS Consent) im Design der Seite */
+  :root{
+    --fsc-bg:#221b14;--fsc-fg:#f4ead8;--fsc-muted:#b6a489;
+    --fsc-accent:#b4562a;--fsc-accent-fg:#fff;
+    --fsc-border:rgba(205,163,90,.28);--fsc-link:#cda35a;--fsc-toggle-off:rgba(244,234,216,.22);
+    --fsc-radius:10px;--fsc-btn-radius:999px;
+    --fsc-font:'Jost',system-ui,sans-serif;--fsc-heading-font:'Cormorant Garamond',Georgia,serif;--fsc-heading-weight:600;
+    --fsc-btn-transform:uppercase;--fsc-btn-spacing:.14em;--fsc-btn-weight:500;
+    --fsc-shadow:0 24px 60px -18px rgba(0,0,0,.75),0 2px 10px rgba(0,0,0,.35);
+  }
 </style>
 </head>
 <body>
@@ -93,10 +113,11 @@
 
 <footer>
   <div class="wrap">
-    <a href="/">Startseite</a> · <a href="/impressum">Impressum</a> · <a href="/datenschutz">Datenschutzerklärung</a>
+    <a href="/">Startseite</a> · <a href="/impressum">Impressum</a> · <a href="/datenschutz">Datenschutzerklärung</a> · <a href="#cookie-einstellungen">Cookie-Einstellungen</a>
     <p style="margin-top:.8rem">© 2026 La Taverna VIII Gaschurn</p>
   </div>
 </footer>
 
+<script src="/fs-consent.js" defer></script>
 </body>
 </html>

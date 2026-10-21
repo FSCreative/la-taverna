@@ -77,6 +77,15 @@
 </script>
 <!-- Schriften werden selbst gehostet (DSGVO): keine Verbindung zu Google -->
 <link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/fs-consent.css">
+<script type="application/json" id="fs-consent-config">
+{
+  "privacyUrl": "/datenschutz",
+  "imprintUrl": "/impressum",
+  "position": "bottom-left",
+  "categories": { "media": ["Google Maps"] }
+}
+</script>
 <style>
   :root{
     --bg:#15110d;
@@ -249,13 +258,9 @@
   .info-row a:hover{color:var(--gold)}
   .map-wrap{border-radius:10px;overflow:hidden;min-height:340px;border:1px solid var(--line)}
   .map-wrap iframe{width:100%;height:100%;min-height:340px;border:0;filter:grayscale(.3) sepia(.15) contrast(1.05)}
-  .map-consent{height:100%;min-height:340px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.85rem;padding:2rem;background:var(--panel)}
-  .map-consent svg{width:34px;height:34px;color:var(--gold)}
-  .map-consent h4{font-family:var(--serif);font-size:1.35rem;font-weight:600;color:var(--cream)}
-  .map-consent p{color:var(--muted);font-size:.86rem;max-width:38ch;line-height:1.6}
-  .map-consent p a{color:var(--gold);text-decoration:underline}
   .map-alt{font-size:.76rem;color:var(--muted);text-decoration:underline}
   .map-alt:hover{color:var(--gold)}
+  .info-row .map-alt{display:inline-block;margin-top:.35rem}
 
   /* Footer */
   footer{background:#0f0c09;padding:4rem 0 2rem;border-top:1px solid var(--line)}
@@ -336,6 +341,17 @@
     .grid-imgs .wide,.grid-imgs .tall{grid-column:span 1;grid-row:span 1}
     .hero h1{font-size:clamp(2.4rem,13vw,3.2rem)}
     .mobile-menu a{font-size:1.7rem}
+  }
+
+  /* Cookie-Banner (FS Consent) im Design der Seite */
+  :root{
+    --fsc-bg:#221b14;--fsc-fg:#f4ead8;--fsc-muted:#b6a489;
+    --fsc-accent:#b4562a;--fsc-accent-fg:#fff;
+    --fsc-border:rgba(205,163,90,.28);--fsc-link:#cda35a;--fsc-toggle-off:rgba(244,234,216,.22);
+    --fsc-radius:10px;--fsc-btn-radius:999px;
+    --fsc-font:'Jost',system-ui,sans-serif;--fsc-heading-font:'Cormorant Garamond',Georgia,serif;--fsc-heading-weight:600;
+    --fsc-btn-transform:uppercase;--fsc-btn-spacing:.14em;--fsc-btn-weight:500;
+    --fsc-shadow:0 24px 60px -18px rgba(0,0,0,.75),0 2px 10px rgba(0,0,0,.35);
   }
 </style>
 </head>
@@ -519,7 +535,7 @@
       <div class="info-card reveal">
         <div class="info-row">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-5.5-7-11a7 7 0 1114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
-          <div><h4>Adresse</h4><p>Kirchdorfstraße 2c<br>6793 Gaschurn, Österreich</p></div>
+          <div><h4>Adresse</h4><p>Kirchdorfstraße 2c<br>6793 Gaschurn, Österreich</p><a class="map-alt" href="https://maps.google.com/?cid=472886726773949005" target="_blank" rel="noopener">In Google Maps öffnen →</a></div>
         </div>
         <div class="info-row">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></div>
@@ -535,13 +551,7 @@
         </div>
       </div>
       <div class="map-wrap reveal" id="mapWrap">
-        <div class="map-consent" id="mapConsent">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-5.5-7-11a7 7 0 1114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-          <h4>Karte von Google Maps</h4>
-          <p>Beim Laden der Karte werden Daten – unter anderem Ihre IP-Adresse – an Google übertragen. Näheres in unserer <a href="/datenschutz">Datenschutzerklärung</a>.</p>
-          <button class="btn btn-primary" id="loadMap" type="button">Karte laden</button>
-          <a class="map-alt" href="https://maps.google.com/?cid=472886726773949005" target="_blank" rel="noopener">Oder direkt in Google Maps öffnen →</a>
-        </div>
+        <iframe data-consent="media" data-service="Google Maps" data-src="https://www.google.com/maps?q=Kirchdorfstra%C3%9Fe%202c,%206793%20Gaschurn,%20Austria&amp;output=embed" title="Standort La Taverna VIII Gaschurn" loading="lazy" referrerpolicy="no-referrer"></iframe>
       </div>
     </div>
   </div>
@@ -582,6 +592,7 @@
         <ul>
           <li><a href="/impressum">Impressum</a></li>
           <li><a href="/datenschutz">Datenschutzerklärung</a></li>
+          <li><a href="#cookie-einstellungen">Cookie-Einstellungen</a></li>
         </ul>
       </div>
     </div>
@@ -623,21 +634,6 @@
   const moreTab=document.getElementById('moreTab');
   if(moreTab){moreTab.addEventListener('click',e=>{e.preventDefault();mm.classList.add('open');});}
 
-  // Google Maps: load only after explicit consent (two-click / DSGVO)
-  const loadMap=document.getElementById('loadMap');
-  if(loadMap){
-    loadMap.addEventListener('click',()=>{
-      const w=document.getElementById('mapWrap');
-      const f=document.createElement('iframe');
-      f.title='Standort La Taverna VIII Gaschurn';
-      f.loading='lazy';
-      f.referrerPolicy='no-referrer';
-      f.src='https://www.google.com/maps?q=Kirchdorfstra%C3%9Fe%202c,%206793%20Gaschurn,%20Austria&output=embed';
-      w.innerHTML='';
-      w.appendChild(f);
-    });
-  }
-
   // load admin-managed images (logo, hero, about, order, gallery)
   fetch('/api/images').then(r=>r.ok?r.json():{}).then(cfg=>{
     if(!cfg||typeof cfg!=='object') return;
@@ -650,5 +646,6 @@
     });
   }).catch(()=>{});
 </script>
+<script src="/fs-consent.js" defer></script>
 </body>
 </html>
