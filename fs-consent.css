@@ -1,4 +1,4 @@
-/*! FS Consent 1.0 · FS Creative · fs-creative.at */
+/*! FS Consent 1.0.1 · FS Creative · fs-creative.at */
 /* Design pro Website über diese Variablen (oder "theme" in der Konfiguration) anpassen. */
 /* Öffentliche Variablen: --fsc-bg, --fsc-fg, --fsc-accent, … (z. B. in :root der Website setzen). */
 .fsc-root, .fsc-ph, .fsc-fab {
@@ -25,6 +25,10 @@
   --_ph-bg: var(--fsc-ph-bg, color-mix(in srgb, var(--_fg) 6%, var(--_bg)));
   --_ph-fg: var(--fsc-ph-fg, var(--_fg));
   --_z: var(--fsc-z, 2147483000);
+  --_title-size: var(--fsc-title-size, 1.15em);
+  --_btn-font: var(--fsc-btn-font, inherit);
+  --_toggle-on: var(--fsc-toggle-on, var(--_accent));
+  --_toggle-knob: var(--fsc-toggle-knob, #fff);
 }
 
 /* ---------- Banner ---------- */
@@ -77,7 +81,7 @@
   font-weight: var(--_heading-weight);
   text-transform: var(--_heading-transform);
   letter-spacing: var(--_heading-spacing);
-  font-size: 1.15em;
+  font-size: var(--_title-size);
   line-height: 1.25;
   margin: 0 0 8px !important;
   color: var(--_fg);
@@ -102,6 +106,7 @@
   background: var(--_accent);
   color: var(--_accent-fg);
   font: inherit;
+  font-family: var(--_btn-font);
   font-size: .93em;
   font-weight: var(--_btn-weight);
   text-transform: var(--_btn-transform);
@@ -162,11 +167,11 @@
   position: absolute; top: 3px; left: 3px;
   width: 20px; height: 20px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--_toggle-knob);
   box-shadow: 0 1px 3px rgba(0, 0, 0, .25);
   transition: transform .2s ease;
 }
-.fsc-switch-input:checked + .fsc-switch-ui { background: var(--_accent); }
+.fsc-switch-input:checked + .fsc-switch-ui { background: var(--_toggle-on); }
 .fsc-switch-input:checked + .fsc-switch-ui::after { transform: translateX(18px); }
 
 /* ---------- Platzhalter für Karten, Videos & Co. ---------- */
@@ -175,7 +180,6 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
   min-height: 220px;
   padding: 24px;
   box-sizing: border-box;
@@ -185,9 +189,10 @@
   font-size: var(--_font-size);
   line-height: 1.5;
   text-align: center;
-  border-radius: inherit;
   overflow: hidden;
 }
+:where(.fsc-ph) { height: 100%; }
+:where([data-consent-embed]) > :where(.fsc-ph) { border-radius: inherit; }
 .fsc-ph-inner { max-width: 400px; }
 .fsc-ph p { margin: 0 0 12px; padding: 0; }
 .fsc-ph-title { font-family: var(--_heading-font); font-weight: var(--_heading-weight); font-size: 1.05em; margin-bottom: 6px !important; }

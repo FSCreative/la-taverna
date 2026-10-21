@@ -1,4 +1,4 @@
-/*! FS Consent 1.0 · Cookie- & Einwilligungs-Banner · FS Creative · fs-creative.at */
+/*! FS Consent 1.0.1 · Cookie- & Einwilligungs-Banner · FS Creative · fs-creative.at */
 (function () {
   'use strict';
   if (window.FSConsent) return;
@@ -14,7 +14,7 @@
       title: 'Cookies & externe Inhalte',
       text: 'Wir verwenden technisch notwendige Cookies, damit diese Website funktioniert. Mit Ihrer Zustimmung laden wir zusätzlich {list}. Dabei können Daten wie Ihre IP-Adresse an die jeweiligen Anbieter übertragen werden. Ihre Auswahl können Sie jederzeit unter „Cookie-Einstellungen“ ändern.',
       infoTitle: 'Cookies',
-      infoText: 'Diese Website verwendet ausschließlich technisch notwendige Cookies bzw. lokalen Speicher. Es werden keine Daten zu Werbe- oder Analysezwecken erhoben oder an Dritte weitergegeben.',
+      infoText: 'Diese Website verwendet ausschließlich technisch notwendige Cookies bzw. lokalen Speicher. Es werden keine Cookies zu Werbe- oder Analysezwecken gesetzt.',
       acceptAll: 'Alle akzeptieren',
       necessaryOnly: 'Nur notwendige',
       settings: 'Einstellungen',
@@ -27,6 +27,7 @@
       settingsText: 'Wählen Sie, welche Inhalte wir laden dürfen. Notwendige Cookies sind immer aktiv.',
       always: 'Immer aktiv',
       services: 'Anbieter',
+      includes: 'Umfasst',
       phText: 'Hier wird ein Inhalt von {service} angezeigt. Beim Laden werden Daten wie Ihre IP-Adresse an {provider} übertragen.',
       phRemember: 'Externe Medien immer erlauben',
       loadMap: 'Karte laden',
@@ -46,7 +47,7 @@
       title: 'Cookies & externe Inhalte',
       text: 'Wir verwenden technisch notwendige Cookies, damit diese Website funktioniert. Mit deiner Zustimmung laden wir zusätzlich {list}. Dabei können Daten wie deine IP-Adresse an die jeweiligen Anbieter übertragen werden. Deine Auswahl kannst du jederzeit unter „Cookie-Einstellungen“ ändern.',
       infoTitle: 'Cookies',
-      infoText: 'Diese Website verwendet ausschließlich technisch notwendige Cookies bzw. lokalen Speicher. Es werden keine Daten zu Werbe- oder Analysezwecken erhoben oder an Dritte weitergegeben.',
+      infoText: 'Diese Website verwendet ausschließlich technisch notwendige Cookies bzw. lokalen Speicher. Es werden keine Cookies zu Werbe- oder Analysezwecken gesetzt.',
       settingsText: 'Wähle, welche Inhalte wir laden dürfen. Notwendige Cookies sind immer aktiv.',
       phText: 'Hier wird ein Inhalt von {service} angezeigt. Beim Laden werden Daten wie deine IP-Adresse an {provider} übertragen.'
     },
@@ -54,7 +55,7 @@
       title: 'Cookies & external content',
       text: 'We use technically necessary cookies to make this website work. With your consent we also load {list}. In doing so, data such as your IP address may be transmitted to the respective providers. You can change your choice at any time under “Cookie settings”.',
       infoTitle: 'Cookies',
-      infoText: 'This website only uses technically necessary cookies or local storage. No data is collected for advertising or analytics purposes or shared with third parties.',
+      infoText: 'This website only uses technically necessary cookies or local storage. No cookies are set for advertising or analytics purposes.',
       acceptAll: 'Accept all',
       necessaryOnly: 'Necessary only',
       settings: 'Settings',
@@ -67,6 +68,7 @@
       settingsText: 'Choose which content we may load. Necessary cookies are always active.',
       always: 'Always active',
       services: 'Providers',
+      includes: 'Includes',
       phText: 'Content from {service} is shown here. Loading it transmits data such as your IP address to {provider}.',
       phRemember: 'Always allow external media',
       loadMap: 'Load map',
@@ -81,6 +83,39 @@
         marketing: ['Marketing', 'Used to show more relevant ads on other platforms and to measure their success.']
       },
       listCat: { media: 'external media', analytics: 'statistics services', marketing: 'marketing services' }
+    },
+    nl: {
+      title: 'Cookies & externe inhoud',
+      text: 'Wij gebruiken technisch noodzakelijke cookies om deze website te laten werken. Met uw toestemming laden wij daarnaast {list}. Daarbij kunnen gegevens zoals uw IP-adres aan de betreffende aanbieders worden doorgegeven. U kunt uw keuze altijd wijzigen via „Cookie-instellingen”.',
+      infoTitle: 'Cookies',
+      infoText: 'Deze website gebruikt uitsluitend technisch noodzakelijke cookies of lokale opslag. Er worden geen cookies voor reclame- of analysedoeleinden geplaatst.',
+      acceptAll: 'Alles accepteren',
+      necessaryOnly: 'Alleen noodzakelijke',
+      settings: 'Instellingen',
+      save: 'Keuze opslaan',
+      ok: 'Begrepen',
+      back: 'Terug',
+      privacy: 'Privacy',
+      imprint: 'Colofon',
+      settingsTitle: 'Cookie-instellingen',
+      settingsText: 'Kies welke inhoud wij mogen laden. Noodzakelijke cookies zijn altijd actief.',
+      always: 'Altijd actief',
+      services: 'Aanbieders',
+      includes: 'Omvat',
+      phText: 'Hier wordt inhoud van {service} getoond. Bij het laden worden gegevens zoals uw IP-adres aan {provider} doorgegeven.',
+      phRemember: 'Externe media altijd toestaan',
+      loadMap: 'Kaart laden',
+      loadVideo: 'Video laden',
+      loadForm: 'Formulier activeren',
+      loadOther: 'Inhoud laden',
+      and: 'en',
+      cat: {
+        necessary: ['Noodzakelijk', 'Nodig om de website te laten werken, bijv. om deze keuze te onthouden, voor formulieren, winkelwagen of login.'],
+        media: ['Externe media', 'Inhoud van andere platforms zoals kaarten, video’s of berichten op sociale media.'],
+        analytics: ['Statistieken', 'Helpt ons te begrijpen hoe bezoekers de website gebruiken, zodat wij deze kunnen verbeteren.'],
+        marketing: ['Marketing', 'Wordt gebruikt om relevantere advertenties op andere platforms te tonen en het succes daarvan te meten.']
+      },
+      listCat: { media: 'externe media', analytics: 'statistiekdiensten', marketing: 'marketingdiensten' }
     }
   };
 
@@ -102,13 +137,13 @@
 
   var cfg = readConfig();
   var htmlLang = (document.documentElement.lang || 'de').slice(0, 2).toLowerCase();
-  var lang = cfg.lang || (htmlLang === 'en' ? 'en' : 'de');
+  var lang = cfg.lang || (htmlLang === 'en' || htmlLang === 'nl' ? htmlLang : 'de');
   var txt = {};
   (function () {
-    var base = lang === 'en' ? T.en : T.sie;
     var k;
-    for (k in base) txt[k] = base[k];
-    if (lang !== 'en' && cfg.tone === 'du') for (k in T.du) txt[k] = T.du[k];
+    for (k in T.sie) txt[k] = T.sie[k];               // Fallback für fehlende Schlüssel
+    if (lang === 'en' || lang === 'nl') for (k in T[lang]) txt[k] = T[lang][k];
+    else if (cfg.tone === 'du') for (k in T.du) txt[k] = T.du[k];
     var over = cfg.texts || {};
     for (k in over) txt[k] = over[k];
   })();
@@ -206,11 +241,12 @@
   var root = null;
   var lastFocus = null;
   var cssReady = false;
+  var hidden = false;
   var fab = null;
 
   // Optional: kleiner runder Button zum Wiederöffnen (für Seiten ohne passenden Footer-Link)
   function showFab() {
-    if (!cfg.reopenButton || fab || !document.body) return;
+    if (!cfg.reopenButton || fab || hidden || !document.body) return;
     ensureCss();
     fab = h('button', { type: 'button', 'class': 'fsc-fab fsc-fab-' + (cfg.reopenButton === 'right' ? 'right' : 'left'), 'aria-label': txt.settingsTitle, title: txt.settingsTitle, onclick: function () { open(); },
       html: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5Zm-3.5 7a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6 5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm-7 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>' });
@@ -276,7 +312,7 @@
           control
         ]),
         h('p', { 'class': 'fsc-cat-desc', text: info[1] }),
-        svc.length ? h('p', { 'class': 'fsc-cat-svc', text: txt.services + ': ' + svc.join(', ') }) : null
+        svc.length ? h('p', { 'class': 'fsc-cat-svc', text: (n === 'necessary' ? txt.includes : txt.services) + ': ' + svc.join(', ') }) : null
       ]));
     });
     return h('div', { 'class': 'fsc-view fsc-view-settings' }, [
@@ -295,7 +331,7 @@
   function allChoices(v) { var o = {}; catNames.forEach(function (n) { o[n] = v; }); return o; }
 
   function render(view) {
-    if (!document.body) return;
+    if (!document.body || hidden) return;
     if (!root) {
       ensureCss();
       root = h('div', { 'class': 'fsc-root fsc-pos-' + (cfg.position || 'bottom-left'), role: 'dialog', 'aria-modal': 'false', 'aria-labelledby': 'fsc-title' });
@@ -350,13 +386,14 @@
     var s = (service + ' ' + (el.getAttribute('data-src') || '')).toLowerCase();
     if (/map|karte|openstreetmap|leaflet/.test(s)) return 'map';
     if (/youtube|vimeo|video/.test(s)) return 'video';
-    if (/recaptcha|captcha|form/.test(s)) return 'form';
+    if (/recaptcha|captcha|\bform(ular)?\b/.test(s)) return 'form';
     return 'other';
   }
 
   function placeholder(el, cat, onLoad) {
     var service = el.getAttribute('data-service') || 'externen Anbietern';
     var provider = el.getAttribute('data-provider') || PROVIDERS[service.toLowerCase()] || service;
+    if (lang !== 'de') provider = provider.replace(/^die /, lang === 'nl' ? 'de ' : 'the ');
     var kind = kindOf(el, service);
     var label = { map: txt.loadMap, video: txt.loadVideo, form: txt.loadForm }[kind] || txt.loadOther;
     var remember = h('input', { type: 'checkbox' });
@@ -417,7 +454,7 @@
       var hgt = el.getBoundingClientRect().height || parseInt(el.getAttribute('height'), 10) || 0;
       if (el.className) ph.className += ' ' + el.className;
       ph.style.minHeight = Math.max(hgt, 220) + 'px';
-      if (cs.borderRadius && cs.borderRadius !== '0px') ph.style.borderRadius = cs.borderRadius;
+      ph.style.borderRadius = cs.borderRadius || '0px';
       var w = el.getAttribute('width');
       if (w && /^\d+$/.test(w)) ph.style.maxWidth = w + 'px';
       el.__fscDisplay = el.style.display;
@@ -451,12 +488,15 @@
 
   // ---------------------------------------------------------------- Öffentliche API
   var FSConsent = {
-    version: '1.0',
+    version: '1.0.1',
     has: function (cat) { return cat === 'necessary' || !!state[cat]; },
     get: snapshot,
     decided: function () { return decided; },
     open: function () { open(); },
-    allow: function (cat) { var c = snapshot(); c[cat] = true; decide(c); },
+    allow: function (cat) {
+      if (OPTIONAL.indexOf(cat) >= 0 && catNames.indexOf(cat) < 0) { cats[cat] = cats[cat] || []; catNames = OPTIONAL.filter(function (n) { return n in cats; }); infoMode = false; }
+      var c = snapshot(); c[cat] = true; decide(c);
+    },
     set: function (choices) { decide(choices || {}); },
     reset: function () {
       try { window.localStorage.removeItem(KEY); } catch (e) { /* egal */ }
@@ -464,6 +504,8 @@
       catNames.forEach(function (n) { state[n] = false; });
       render('main');
     },
+    hide: function () { hidden = true; if (root) { root.parentNode && root.parentNode.removeChild(root); root = null; } if (fab) fab.style.display = 'none'; },
+    show: function () { hidden = false; if (fab) fab.style.display = ''; if (!decided) render('main'); else showFab(); },
     onChange: function (fn) { listeners.push(fn); return function () { listeners = listeners.filter(function (f) { return f !== fn; }); }; },
     scan: scan
   };
@@ -493,7 +535,23 @@
     decided = !!saved && catNames.every(function (n) { return saved.c && n in saved.c; });
   }
 
+  function excluded() {
+    var ex = cfg.exclude || [];
+    for (var i = 0; i < ex.length; i++) if (window.location.pathname.indexOf(ex[i]) === 0) return true;
+    return false;
+  }
+
   function start() {
+    if (excluded()) hidden = true;
+    if (cfg.exclude && window.history && history.pushState) {
+      // Client-Navigation (Next.js & Co.): beim Wechsel in ausgeschlossene Bereiche ausblenden
+      var check = function () { var ex = excluded(); if (ex && !hidden) FSConsent.hide(); else if (!ex && hidden) FSConsent.show(); };
+      ['pushState', 'replaceState'].forEach(function (m) {
+        var orig = history[m];
+        history[m] = function () { var r = orig.apply(this, arguments); setTimeout(check, 0); return r; };
+      });
+      window.addEventListener('popstate', check);
+    }
     registerFromDom();
     scan(document);
     if (window.MutationObserver) {
