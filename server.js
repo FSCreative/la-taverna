@@ -5,6 +5,7 @@ const http = require('http');
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const PORT = process.env.PORT || 3000;
 const ROOT = __dirname;
@@ -14,8 +15,46 @@ const ASSET_DIR = path.join(DATA_DIR, 'assets');
 const FONT_DIR = path.join(ASSET_DIR, 'fonts');
 const IMG_DIR = path.join(ASSET_DIR, 'img');
 const IMAGES_FILE = path.join(DATA_DIR, 'images.json');
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'taverna2026';
+// Kein Fallback: ohne ADMIN_PASSWORD bleiben Admin-Login und Bild-API gesperrt.
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
+if (!ADMIN_PASSWORD) console.warn('WARNUNG: ADMIN_PASSWORD ist nicht gesetzt – Admin-Login und Bild-API sind gesperrt.');
 const MAX_BODY = 9 * 1024 * 1024;
+
+// Einzige Dateien aus dem Repo-Root, die öffentlich ausgeliefert werden.
+// Alles andere (server.js, package.json, README, .git …) bleibt intern.
+const PUBLIC_FILES = new Set([
+  'index.html', 'impressum.html', 'datenschutz.html', 'admin.html',
+  'robots.txt', 'sitemap.xml', 'site.webmanifest',
+  'fs-consent.js', 'fs-consent.css'
+]);
+
+function isAdmin(pw) {
+  if (!ADMIN_PASSWORD || typeof pw !== 'string' || !pw) return false;
+  const a = crypto.createHash('sha256').update(pw).digest();
+  const b = crypto.createHash('sha256').update(ADMIN_PASSWORD).digest();
+  return crypto.timingSafeEqual(a, b);
+}
+
+// Login-Sperre: max. 10 Fehlversuche pro IP in 15 Minuten
+const LOGIN_WINDOW = 15 * 60 * 1000, LOGIN_MAX_FAILS = 10;
+const loginFails = new Map();
+function clientIp(req) {
+  // X-Real-IP setzt der Railway-Proxy; beim X-Forwarded-For zählt nur der letzte (vom Proxy angehängte) Eintrag,
+  // der erste ist vom Client frei wählbar.
+  const xff = String(req.headers['x-forwarded-for'] || '').split(',').map(s => s.trim()).filter(Boolean);
+  return String(req.headers['x-real-ip'] || '').trim() || xff[xff.length - 1] || req.socket.remoteAddress || '';
+}
+function loginBlocked(ip) {
+  const e = loginFails.get(ip);
+  if (!e) return false;
+  if (Date.now() - e.first > LOGIN_WINDOW) { loginFails.delete(ip); return false; }
+  return e.count >= LOGIN_MAX_FAILS;
+}
+function noteLoginFail(ip) {
+  const e = loginFails.get(ip);
+  if (!e || Date.now() - e.first > LOGIN_WINDOW) loginFails.set(ip, { first: Date.now(), count: 1 });
+  else e.count++;
+}
 
 const KEYS = new Set(['logo','hero_bg','about','order_bg','gallery_1','gallery_2','gallery_3','gallery_4','gallery_5','gallery_6']);
 
@@ -163,7 +202,9 @@ function collectBody(req, cb) {
 }
 
 const server = http.createServer((req, res) => {
-  const urlPath = decodeURIComponent((req.url || '/').split('?')[0]);
+  let urlPath;
+  try { urlPath = decodeURIComponent((req.url || '/').split('?')[0]); }
+  catch (e) { res.writeHead(400); return res.end('Bad request'); } // kaputte %-Kodierung darf den Server nicht abstürzen lassen
 
   // ---- self-hosted fonts ----
   if (urlPath === '/assets/fonts.css') {
@@ -203,17 +244,22 @@ const server = http.createServer((req, res) => {
   }
 
   if (urlPath === '/api/login' && req.method === 'POST') {
+    if (!ADMIN_PASSWORD) return sendJson(res, 503, { error: 'admin_disabled' });
+    const ip = clientIp(req);
+    if (loginBlocked(ip)) return sendJson(res, 429, { error: 'too_many_attempts' });
     return collectBody(req, (err, buf) => {
       if (err) return sendJson(res, 400, { error: 'bad_request' });
       let pw = '';
       try { pw = (JSON.parse(buf.toString('utf8')) || {}).password || ''; } catch (e) {}
-      if (pw === ADMIN_PASSWORD) return sendJson(res, 200, { ok: true });
+      if (isAdmin(pw)) { loginFails.delete(ip); return sendJson(res, 200, { ok: true }); }
+      noteLoginFail(ip);
       return sendJson(res, 401, { error: 'invalid' });
     });
   }
 
   if (urlPath === '/api/images' && (req.method === 'POST' || req.method === 'DELETE')) {
-    if ((req.headers['x-admin-key'] || '') !== ADMIN_PASSWORD)
+    if (!ADMIN_PASSWORD) return sendJson(res, 503, { error: 'admin_disabled' });
+    if (!isAdmin(req.headers['x-admin-key'] || ''))
       return sendJson(res, 401, { error: 'unauthorized' });
     return collectBody(req, (err, buf) => {
       if (err) return sendJson(res, err.message === 'too_large' ? 413 : 400, { error: err.message });
@@ -275,11 +321,12 @@ const server = http.createServer((req, res) => {
   if (filePath === '/impressum') filePath = '/impressum.html';
   if (filePath === '/datenschutz') filePath = '/datenschutz.html';
 
-  const safePath = path.normalize(path.join(ROOT, filePath));
-  if (!safePath.startsWith(ROOT)) { res.writeHead(403); return res.end('Forbidden'); }
+  // Nur freigegebene Dateien direkt im Repo-Root; keine Unterordner, kein Path-Traversal
+  const name = filePath.replace(/^\/+/, '');
+  const safePath = PUBLIC_FILES.has(name) ? path.join(ROOT, name) : null;
 
-  fs.stat(safePath, (err, st) => {
-    if (err || !st.isFile()) {
+  fs.stat(safePath || ROOT, (err, st) => {
+    if (!safePath || err || !st.isFile()) {
       return fs.readFile(path.join(ROOT, 'index.html'), (e2, data) => {
         if (e2) { res.writeHead(404); return res.end('Not found'); }
         res.writeHead(404, { 'Content-Type': MIME['.html'] });
