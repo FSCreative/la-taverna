@@ -230,6 +230,8 @@ async function doLogin(){
   try{
     const r = await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pw})});
     if(r.ok){ KEY=pw; sessionStorage.setItem('admkey',pw); showDash(); }
+    else if(r.status===503){ msg.textContent='Admin ist gesperrt: Auf dem Server ist kein ADMIN_PASSWORD gesetzt.'; msg.className='msg err'; }
+    else if(r.status===429){ msg.textContent='Zu viele Fehlversuche. Bitte in 15 Minuten erneut versuchen.'; msg.className='msg err'; }
     else { msg.textContent='Falsches Passwort.'; msg.className='msg err'; }
   }catch(e){ msg.textContent='Verbindungsfehler.'; msg.className='msg err'; }
 }
